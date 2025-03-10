@@ -1,0 +1,440 @@
+/***** Styles for the org charts themselves *****/
+/* Edit this if there is a style change within the Org Charts */
+/* Always use view width for sizes to ensure correct responsiveness */
+
+:root {
+    /* Variables for chart colors */
+    --funct-int-color: #d9d9d9b7;
+    --lc-color: #00235F;
+    --tl-color: #626262;
+    --ec-expert-color: rgb(38, 158, 38);
+    
+    /* Static styling colors for theme ignorance */
+    --static_text-color: #000000;
+    --static_primary-color: #00235F;
+    --static_primary-color-preview: #00235f93;
+    --static_primary-color-hover: #002a74;
+    --static_secondary-color: #A4A4A4;
+    --static_background-color: white;
+    
+    --static_selected: #0cb2ff;
+    --static_selectable: #0f7c80;
+    --static_selectable_pulse: #8adfe2;
+}
+
+/* Page */
+.page {
+    position: relative;
+    background-color: var(--static_background-color);
+    color: var(--static_text-color);
+}
+
+/* Title */
+.page_title {
+    font-family: var(--title-font);
+    position: absolute;
+    top: 1.5vw;
+    left: 2vw;
+    font-size: 1.6vw;
+    margin: 0;
+    padding: 0;
+    width: 70vw;
+    color: var(--static_primary-color);
+    border: none;
+    outline: none;
+    background: transparent;
+    cursor: text;
+}
+
+.page_title:focus {
+    color: var(--edit-color);
+}
+
+.page_title::placeholder {
+    color: var(--static_primary-color-preview);
+}
+
+/* Subtitle */
+.page_subtitle {
+    font-family: var(--title-font-light);
+    font-weight: normal;
+    position: absolute;
+    top: 3.5vw;
+    left: 2vw;
+    font-size: 1.1vw;
+    margin: 0;
+    padding: 0;
+    width: 70vw;
+    color: var(--static_primary-color);
+    border: none;
+    outline: none;
+    background: transparent;
+    cursor: text;
+}
+
+.page_subtitle:focus {
+    color: var(--edit-color);
+}
+
+.page_subtitle::placeholder {
+    color: var(--static_primary-color-preview);
+}
+
+/* Canvas */
+.canvas {
+    position: relative;
+    top: 5.5vw;
+    height: calc(100% - 5.5vw);
+    display: flex;
+    flex-direction: column;
+    gap: 0.65vw;
+}
+
+/* Layer Indicators */
+.layer {
+    margin-left: 0.5vw;
+    position: relative;
+    width: calc(100% - 1vw);
+    height: 2.7vw;
+}
+
+.layer-index-preview::before {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1vw;
+    content: 'NX';
+    font-family: var(--title-font);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2.1vw;
+    height: 0.01vw;
+    background-color: var(--static_primary-color-preview);
+    color: var(--static_primary-color-preview);
+}
+
+.layer-index::before {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1vw;
+    content: attr(data-index);
+    font-family: var(--title-font);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2.1vw;
+    height: 0.01vw;
+    background-color: var(--static_primary-color);
+    color: var(--static_primary-color);
+}
+
+.layer-index-preview-first::before {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1vw;
+    content: 'NX';
+    font-family: var(--title-font);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2.1vw;
+    height: 0;
+    background-color: var(--static_primary-color-preview);
+    color: var(--static_primary-color-preview);
+}
+
+.layer-index-first::before {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1vw;
+    content: attr(data-index);
+    font-family: var(--title-font);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2.1vw;
+    height: 0;
+    background-color: var(--static_primary-color);
+    color: var(--static_primary-color);
+}
+
+.layer-last {
+    width: calc(100% - 30vw);
+}
+
+/* Position */
+.position {
+    position: absolute;
+    height: 100%;
+    width: 9.5vw;
+}
+
+.position_text {
+    position: absolute;
+    resize: none;
+    overflow: hidden;
+    width: calc(100% - 0.4vw);
+    height: auto;
+    min-height: 1.5vw;
+    font-family: var(--LufthansaText);
+    font-size: 0.7vw;
+    margin: 0;
+    padding: 0;
+    left: 0.2vw;
+    top: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    cursor: text;
+    white-space: pre-wrap; /* Ensure text wraps correctly */
+}
+
+.position_res_per {
+    font-family: var(--LufthansaText);
+    font-size: 0.7vw;
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    cursor: text;
+    position: absolute;
+    right: 0.1vw;
+    bottom: 0.1vw;
+    text-align: right;
+    width: 8vw;
+}
+
+.position_res_per::placeholder {
+    color: #0000003d;
+}
+
+/* Position types */
+.head {
+    color: white !important;
+    border: var(--lc-color) 0.1vw solid;
+    background-color: var(--lc-color);
+}
+
+.head input {
+    color: white !important;
+}
+
+.head input::placeholder {
+    color: rgba(255, 255, 255, 0.486);
+}
+
+.lc {
+    color: var(--lc-color);
+    border: var(--lc-color) 0.1vw solid;
+}
+
+.lc input {
+    color: var(--lc-color);
+}
+
+.tl {
+    color: var(--tl-color);
+    border: var(--tl-color) 0.1vw solid;
+}
+
+.tl input {
+    color: var(--tl-color);
+}
+
+.ec {
+    color: var(--ec-expert-color) ;
+    border: var(--ec-expert-color) 0.1vw solid;
+}
+
+.ec input {
+    color: var(--ec-expert-color);
+}
+
+.proj {
+    border-style: dashed;
+}
+
+.func {
+    outline: var(--funct-int-color) 0.29vw solid;
+}
+
+.selectable{
+    cursor: pointer !important;
+    animation: pulse 1s infinite;
+}
+
+.selected {
+    border: 0.1vw solid var(--static_selected);
+}
+
+@keyframes pulse {
+    0% {
+        border-color: var(--static_selectable);
+    }
+    50% {
+        border-color: var(--static_selectable_pulse);
+    }
+    100% {
+        border-color: var(--static_selectable);
+    }
+}
+
+/* Personal unions */
+.personal_unions {
+    position: absolute;
+    bottom: 1vw;
+    left: 1vw;
+    color: var(--static_secondary-color);
+    font-size: smaller;
+    min-width: 10vw;
+    border: transparent 0.1vw solid;
+    border-radius: .2vw;
+}
+
+.personal_unions:hover {
+    border: var(--static_primary-color) 0.1vw solid;
+}
+
+/* Page Footer and Logo */
+.page_footer {
+    position: absolute;
+    bottom: 1vw;
+    right: 0.75vw;
+    display: flex;
+    justify-self: end;
+}
+
+.page_footer img {
+    align-self: center;
+    width: 12vw;
+}
+
+/* Legend */
+.legend {
+    width: fit-content;
+    display: grid;
+    grid-template-columns: 4vw 4vw 5.5vw;
+    font-size: 0.5vw;
+    row-gap: 0.25vw;
+    font-family: var(--title-font-light);
+}
+
+.legend_item {
+    display: flex;
+    align-items: center;
+}
+
+.line,
+.square {
+    display: inline-block;
+    margin-right: 0.4vw;
+}
+
+.square {
+    width: 0.5vw;
+    height: 0.5vw;
+    border: 0.01vw solid;
+}
+
+.funct-line {
+    width: 0.6vw;
+    height: 0.01vw;
+    background-color: var(--lc-color);
+}
+
+.lc-position {
+    border-color: var(--lc-color);
+}
+
+.tl-position {
+    border-color: var(--tl-color);
+}
+
+.funct-integrated {
+    background-color: var(--funct-int-color);
+    border-color: var(--funct-int-color);
+}
+
+.ec-expert {
+    border-color: var(--ec-expert-color);
+}
+
+.project {
+    border-style: dashed;
+}
+
+
+/* Position settings */
+.position_settings_container {
+    display: none;
+    z-index: 1000;
+    background-image: url("/resources/assets/icons/position_setting_background.svg");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    width: 14.3vw;
+    height: 3.4vw; 
+    position: absolute;
+    padding: 0.4vw; 
+}
+
+.position_settings {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5vw;
+    padding: 0.5vw; 
+    height: 1.8vw; 
+}
+
+.position_settings select {
+    height: 1.7vw; /* 33px to vw */
+    border-color: var(--popup-border-color);
+    background-color: transparent;
+    padding: 0 0.25vw;
+    border-radius: 0.25vw;
+    cursor: pointer;
+}
+
+.position_settings select:focus {
+    outline: none;
+}
+
+.position_settings div {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.position_settings div label {
+    cursor: pointer;
+    font-size: 0.7vw; /* 0.6vw + 0.1vw */
+    user-select: none;
+}
+
+.position_settings div input[type=checkbox].toggle-switch {
+    margin: 0;
+    width: 1.7vw; /* 1.3vw + 0.1vw */
+    height: 0.96vw; /* 0.85vw + 0.1vw */
+    border-radius: 0.96vw; /* 0.85vw + 0.1vw */
+}
+
+.position_settings div input[type=checkbox].toggle-switch::after {
+    width: 0.96vw; /* 0.85vw + 0.1vw */
+    height: 0.96vw; /* 0.85vw + 0.1vw */
+    border-radius: 0.96vw; /* 0.85vw + 0.1vw */
+}
+
+.position_settings div input[type=checkbox].toggle-switch:checked::after {
+    left: 0.75vw; /* 0.65vw + 0.1vw */
+}
+
+.position_settings img {
+    width: 1.25vw;
+    height: 1.25vw;
+    cursor: pointer;
+}

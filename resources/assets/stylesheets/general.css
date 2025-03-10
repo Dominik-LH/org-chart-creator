@@ -1,0 +1,201 @@
+/* Font loading */
+@font-face {
+    font-family: 'LufthansaHeadBold';
+    src: url('/resources/assets/fonts/LufthansaHeadWeb-Bold.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'LufthansaHeadLight';
+    src: url('/resources/assets/fonts/LufthansaHeadWeb-Light.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'LufthansaText';
+    src: url('/resources/assets/fonts/LufthansaTextWeb-Regular.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'LufthansaTextItalic';
+    src: url('/resources/assets/fonts/LufthansaTextWeb-RegularItalic.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'LufthansaTextBold';
+    src: url('/resources/assets/fonts/LufthansaTextWeb-Bold.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'LufthansaTextBoldItalic';
+    src: url('/resources/assets/fonts/LufthansaTextWeb-BoldItalic.ttf') format('truetype');
+}
+
+.dark_theme {
+    /* Color Variables */
+    --text-color: #d6d6d6;
+    --primary-color: #4884ea;
+    --primary-color-hover: #3670d4;
+    --secondary-color: #ffffff;
+    --secondary-color-hover: #d6d6d6;
+    --edit-color: #8ab4f8;
+    --warning-color: #e6594c;
+    --warning-color-hover: #D44C4C;
+    --icon-color: #ffffff;
+    --background-color: #333334;
+    --toggle-background-color: #6b6b6b;
+    --toggle-background-color-hover: #8a8a8a;
+    --popup-border-color: #8e9094;
+    --foreground-color: #252627;
+    --primary-color-disabled: #3b3b3b;
+    --svg-invert: invert(80%);
+    --svg-hover-invert: invert(1);
+    --page-editor-add-invert: invert(1) sepia(1) saturate(5) hue-rotate(175deg);
+}
+
+.light_theme {
+    /* Color Variables */
+    --text-color: #000000;
+    --primary-color: #00235F;
+    --primary-color-hover: rgb(0, 53, 145);
+    --secondary-color: #A4A4A4;
+    --secondary-color-hover: #7c7c7c;
+    --edit-color: #0041AF;
+    --warning-color: #E76C6C;
+    --warning-color-hover: #D44C4C;
+    --icon-color: #000000;
+    --background-color: #F2F2F2;
+    --toggle-background-color: #cccaca;
+    --toggle-background-color-hover: #d8d5d5;
+    --popup-border-color: #D9D9D9;
+    --foreground-color: #ffffff;
+    --primary-color-disabled: #A4A4A4;
+    --svg-invert: invert(50%);
+}
+
+:root {
+    /* Font Variables */
+    --title-font: 'LufthansaHeadBold', sans-serif;
+    --title-font-light: 'LufthansaHeadLight', sans-serif;
+    --text-font: 'LufthansaText', sans-serif;
+    --text-font-italic: 'LufthansaTextItalic', sans-serif;
+    --text-font-bold: 'LufthansaTextBold', sans-serif;
+    --text-font-bold-italic: 'LufthansaTextBoldItalic', sans-serif;
+}
+
+/* General component stylings */
+body {
+    font-family: var(--text-font);
+    background-color: var(--background-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--title-font);
+}
+
+input {
+    cursor: pointer;
+}
+
+.error_message {
+    color: var(--warning-color) !important;
+    margin: 0;
+    padding: 0;
+}
+
+.svg {
+    filter: var(--svg-invert);
+}
+
+.svg:hover {
+    filter: var(--svg-hover-invert);
+}
+
+/* Button styling */
+button {
+    padding: 7px 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    font-family: var(--title-font);
+}
+
+.secondary_button {
+    background-color: transparent;
+    border: 1px solid var(--secondary-color);
+    color: var(--secondary-color);
+}
+
+.secondary_button:hover {
+    background-color: transparent;
+    border: 1px solid var(--secondary-color-hover);
+    color: var(--secondary-color-hover);
+}
+
+.primary_button {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.primary_button:hover {
+    background-color: var(--primary-color-hover);
+}
+
+.primary_button_disabled {
+    background-color: var(--primary-color-disabled);
+    color: white;
+    cursor: default;
+}
+
+.primary_button_disabled:hover {
+    cursor: not-allowed;
+}
+
+.warning_button {
+    background-color: transparent;
+    border: 1px solid var(--warning-color);
+    color: var(--warning-color);
+}
+
+/* Toggle switch (primarily used in export menu settings) */
+input[type=checkbox].toggle-switch {
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    width: 3em;
+    height: 1.8em;
+    border-radius: 1.8em;
+    background-color: var(--toggle-background-color);
+    outline: 0;
+    cursor: pointer;
+    transition: background-color 0.09s ease-in-out;
+    position: relative;
+}
+
+input[type=checkbox].toggle-switch:hover {
+    background-color: var(--toggle-background-color-hover);
+}
+
+input[type=checkbox].toggle-switch:checked {
+    background-color: var(--primary-color);
+}
+
+input[type=checkbox].toggle-switch:checked:hover {
+    background-color: var(--primary-color-hover);
+}
+
+input[type=checkbox].toggle-switch::after {
+    content: '';
+    width: 1.8em;
+    height: 1.8em;
+    background-color: var(--foreground-color);
+    border-radius: 1.8em;
+    position: absolute;
+    transform: scale(0.7);
+    left: 0;
+    transition: left 0.09s ease-in-out;
+    /*box-shadow: 0 0.1em rgba(0, 0, 0, 0.5);*/
+}
+
+input[type=checkbox].toggle-switch:checked::after {
+    left: 1.25em;
+}

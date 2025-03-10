@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Organizational Chart Creator</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/resources/assets/img/LH-logo-small.png" type="image/png">
+    <script>
+        // Dynamically load local stylesheets
+        const stylesheets = [
+            "chart.css",
+            "general.css",
+            "header.css",
+            "layout.css",
+            "popup.css"
+        ];
+        stylesheets.forEach(stylesheet => {
+            const linkElement = document.createElement('link');
+            linkElement.rel = 'stylesheet';
+            linkElement.href = `resources/assets/stylesheets/${stylesheet}`;
+            document.head.appendChild(linkElement);
+        });
+
+        // Dynamically load local scripts
+        const scripts = [
+            "connection.js",
+            "csv-export.js",
+            "csv-import.js",
+            "export.js",
+            "file-saving.js",
+            "general.js",
+            "layout.js",
+            "page-editor.js",
+            "page.js",
+            "popups.js",
+            "position.js"
+        ];
+        scripts.forEach(script => {
+            const scriptElement = document.createElement('script');
+            scriptElement.src = `resources/js/${script}`;
+            scriptElement.defer = true;
+            document.head.appendChild(scriptElement);
+        });
+
+        // Dynamically load CDN scripts and stylesheets
+        const cdnScripts = [
+            "https://unpkg.com/idb@5.0.7/build/iife/index-min.js", //file saving 
+            "https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.3/dragula.min.js", //drag and drop pages
+            "https://cdnjs.cloudflare.com/ajax/libs/interact.js/1.10.27/interact.min.js", //drag and drop positions
+            "https://cdnjs.cloudflare.com/ajax/libs/leader-line/1.0.7/leader-line.min.js", //position connections
+            "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js", //PDF export
+            "https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js", //PDF export und page editor
+            "https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.28/webfontloader.js", //PDF export
+            "https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js", //PDF export
+            "https://unpkg.com/svg2pdf.js/dist/svg2pdf.min.js", //PDF export
+            "https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js" //csv
+        ];
+        const cdnStylesheets = [
+            "https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.3/dragula.min.css"
+        ];
+
+        cdnScripts.forEach(cdnScript => {
+            const scriptElement = document.createElement('script');
+            scriptElement.src = cdnScript;
+            scriptElement.defer = true;
+            document.head.appendChild(scriptElement);
+        });
+
+        cdnStylesheets.forEach(cdnStylesheet => {
+            const linkElement = document.createElement('link');
+            linkElement.rel = 'stylesheet';
+            linkElement.href = cdnStylesheet;
+            document.head.appendChild(linkElement);
+        });
+    </script>
+</head>
+
+<body onload="init()">
+    <!--Header-->
+    <header>
+        <div id="header_title">
+            <img id="header_logo" src="/resources/assets/img/LH-logo-small.png" alt="logo" width="35" height="35">
+            <div id="header_menu">
+                <h1 id="title">Organizational Chart Creator</h1> <!--Title of the page will change dynamically-->
+                <!--Menu-->
+                <div id="header_menu_items">
+                    <div id="header_menu_item_file"> File </div>
+                    <div id="header_menu_item_edit"> Edit </div>
+                    <div id="header_menu_item_settings"> Settings</div>
+                    <div id="header_menu_item_help"> Help</div>
+                    <!--Info about saving status-->
+                    <div id="status_bar">
+                        <p id="saved_changes_display">All changes saved</p>
+                        <p id="saving_display">saving...</p>
+                        <button id="unsaved_changes_button" onclick="saveChart()">Unsaved changes. Click here to save.</button>
+                    </div>
+                </div>
+            </div>
+            <!--Submenu boxes-->
+            <div id="header_file_menu" class="header_submenu"> <!--File menu-->
+                <div onclick="createNewChart()">New</div>
+                <div onclick="loadChart()">Open</div>
+                <hr>
+                <div onclick="saveChart()">Save (Ctrl+S)</div>
+                <div onclick="saveChartAs()">Save As</div>
+                <hr>
+                <div onclick="openPopupById('export_menu')">Export as PDF</div>
+                <div onclick="exportToCSV()">Export as CSV</div>
+            </div> 
+            <div id="header_edit_menu" class="header_submenu"> <!--Edit menu-->
+                <div onclick="openPopupById('page_menu')">Page Editor</div>
+                <hr>
+                <div onclick="openPopupById('import_menu')">Import CSV</div>
+            </div>
+            <div id="header_settings_menu" class="header_submenu"> <!--Settings menu-->
+                <div>
+                    <label for="dark_theme_setting">Dark Theme</label>
+                    <input type="checkbox" class="toggle-switch" id="dark_theme_setting">
+                </div>
+                <div>
+                    <label for="autosave_setting">Autosave</label>
+                    <input type="checkbox" class="toggle-switch" id="autosave_setting">
+                </div>
+            </div>
+            <div id="header_help_menu" class="header_submenu">  <!--Help menu-->
+                <div><a href="/help/userguide.pdf" target="_blank">User Guide</a></div>
+                <div><a href="/help/documentation.pdf" target="_blank">Documentation</a></div>
+            </div>
+        </div>
+        <!--Header buttons (import & export shortcuts)-->
+        <div id="header_buttons_container">
+            <button class="secondary_button" onclick="openPopupById('import_menu')">
+                Import CSV
+            </button>
+            <button class="primary_button" onclick="openPopupById('export_menu')">
+                Export
+            </button>
+        </div>
+    </header>
+    <!--Main container (page body)-->
+    <div id="main_container">
+        <!--Toolbar on the left-->
+        <div id="toolbar_container">
+            <div></div><!--Empty div for alignment do not remove-->
+            <div class="tools_container"> <!--Edit tools container-->
+                <div onclick="addPosition()">
+                    <img src="/resources/assets/icons/add_position.svg" alt="add position" width="50" class="svg">
+                    <p>Add position</p>
+                </div>
+                <div onclick="addDownConnection()">
+                    <img src="/resources/assets/icons/down_connect.svg" alt="down connect" width="40" class="svg">
+                    <p>Down connect</p>
+                </div>
+                <div onclick="addLeftConnection()">
+                    <img src="/resources/assets/icons/left_connect.svg" alt="left connect" height="30" class="svg">
+                    <p>Left connect</p>
+                </div>
+            </div>
+            <div class="tools_container"> <!--Page tools container-->
+                <div onclick="addPage()">
+                    <img src="/resources/assets/icons/add_page.svg" alt="add page" width="50" class="svg">
+                    <p>Add <br> Page</p>
+                    
+                </div>
+                <div onclick="openPopupById('page_menu')">
+                    <img src="/resources/assets/icons/page_editor.svg" alt="page editor" width="50" class="svg">
+                    <p>Page Editor</p>
+                </div>
+            </div>
+        </div>
+        <div id="pages_container">
+             <!--Pages will be dynamically inserted here -->
+        </div>
+    </div>
+
+    <!--Popups-->
+    <!--Delete warning popup-->
+    <div id="delete_warning" class="popup_container" style="display: none">
+        <div class="popup_header_container"><!--Popup header-->
+            <h2 id="delete_warning_title" class="popup_title">Delete</h2>
+            <div class="popup_close">
+                <img src="/resources/assets/icons/close.svg" alt="close" class="svg">
+            </div>
+        </div>
+        <div class="popup_body_container"><!--Popup body-->
+            <p id="delete_warning_message">
+                Are you sure you want to delete this item? This action cannot be undone.
+            </p>
+            <div class="popup_button_container"><!--Actions-->
+                <button class="secondary_button">
+                    Cancel
+                </button>
+                <button class="warning_button">
+                    Delete
+                </button>
+            </div>
+        </div>
+    </div>
+    <!--Welcome popup-->
+    <div id="welcome_menu" class="popup_container" style="display: none">
+        <div class="popup_header_container"><!--Popup header-->
+            <h2 class="popup_title">Welcome</h2>
+            <div class="popup_close" onclick="closePopupById('welcome_menu')">
+                <img src="/resources/assets/icons/close.svg" alt="close" class="svg">
+            </div>
+        </div>
+        <div class="popup_body_container"><!--Popup body-->
+            <div id="welcome_menu_content_container" class="popup_content_container">
+                <button class="primary_button" onclick="call_createNewChart()">
+                    Create New Chart
+                </button>
+                <button class="primary_button" onclick="call_loadChart()">
+                    Open Existing Chart
+                </button>
+            </div>
+        </div>
+    </div>
+    <!--Export menu popup-->
+    <div id="export_menu" class="popup_container" style="display: none">
+        <div class="popup_header_container"> <!--Popup header-->
+            <h2 class="popup_title">Export Menu</h2>
+            <div class="popup_close" onclick="closePopupById('export_menu')">
+                <img src="/resources/assets/icons/close.svg" alt="close" class="svg">
+            </div>
+        </div>
+        <div class="popup_body_container"><!--Popup body-->
+            <div class="popup_content_container">
+                <label for="export_title_setting">Title of the Organizational Chart</label>
+                <input type="text" id="export_title_setting" value="Organizational Chart">
+                <div>
+                    <label for="export_names_setting">Export with Names</label>
+                    <input type="checkbox" class="toggle-switch" id="export_names_setting" checked>
+                </div>
+            </div>
+            <div class="popup_button_container"> <!--Actions-->
+                <button class="secondary_button" onclick="closePopupById('export_menu')">
+                    Cancel
+                </button>
+                <button class="primary_button"
+                    onclick="call_exportPDF(document.getElementById('export_names_setting').checked, document.getElementById('export_title_setting').value)">
+                    Export
+                </button>
+            </div> 
+        </div>
+    </div>
+    <!--Import menu popup-->
+    <div id="import_menu" class="popup_container" style="display: none">
+        <div class="popup_header_container"><!--Popup header-->
+            <h2 class="popup_title">Import Menu</h2>
+            <div class="popup_close" onclick="closePopupById('import_menu')">
+                <img src="/resources/assets/icons/close.svg" alt="close" class="svg">
+            </div>
+        </div>
+        <div class="popup_body_container"><!--Popup body-->
+            <p>
+                By importing a CSV file, the organizational chart can be created and updated automatically. 
+                Note that the CSV file must have the following columns: Bezeichnung, Leiter, Name, Level.
+            </p>
+            <div class="popup_content_container">
+                <label for="file_input">Select a CSV file to import</label>
+                <input type="file" id="file_input" accept=".csv" onchange="call_validateImport()">
+                <p id="import_error_message" class="error_message">Please select a valid CSV file.</p>
+                <p id="import_error_message_columns" class="error_message">Columns not matching.</p>
+            </div>
+            <div class="popup_button_container">
+                <button class="secondary_button" onclick="closePopupById('import_menu')">Cancel</button>
+                <button id="import_button" class="primary_button_disabled" onclick="call_importCSV()" disabled>Import</button>
+            </div>
+        </div>
+    </div>
+    <!--Page menu popup-->
+    <div id="page_menu" class="popup_container" style="display: none">
+        <div class="popup_header_container"><!--Popup header-->
+            <h2 class="popup_title">Page Editor</h2>
+            <div class="popup_close" onclick="closePopupById('page_menu')">
+                <img src="/resources/assets/icons/close.svg" alt="close" class="svg">
+            </div>
+        </div>
+        <div class="popup_body_container"><!--Popup body-->
+            <p>Move pages via dragging. Delete or add pages via hovering.</p>
+            <div id="small_pages_outer_container">
+                <div id="small_pages_container" class="small_pages_container">
+                    <!-- Small pages will be dynamically inserted here -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Message displays (small messages at the bottom of the screen)-->
+    <div id="message_display">
+        There was an error displaying this message.
+    </div>
+    <!--Mobile warning popup-->
+    <div id="mobile_warning" class="popup_container" style="display: none">
+        <div class="popup_body_container">
+            <p>
+                This tool is not optimized for mobile devices. Please use a desktop for the best experience.
+            </p>
+            <button class="warning_button" onclick="closePopupById('mobile_warning')">
+                Continue anyway
+            </button>
+        </div>
+    </div>
+    <!--Popup overlay for the background-->
+    <div class="popup_overlay" id="popup_overlay"></div>
+    <!--Loader-->
+    <div class="loader" id="loader"></div>
+    <div class="loader_message" id="loader_message"></div>
+    <div class="loader_overlay" id="loader_overlay"></div>
+</body>
+
+</html>
