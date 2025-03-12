@@ -72,7 +72,7 @@ function addImportedDataToView(jsonData) {
             let currPage = new Page(jsonData[mainKey].undefined[0].Bezeichnung, null, layerStart, null, null);
             //add header to page
             let currPosText = jsonData[mainKey].undefined[0].Bezeichnung + " - " + jsonData[mainKey].undefined[0].Name;
-            let headerPos = new Position(null, currPage.pageId, currPosText, jsonData[mainKey].undefined[0].Leiter, 'head', false, false, 33, 0);
+            let headerPos = new Position(null, currPage.pageId, currPosText, jsonData[mainKey].undefined[0].Leiter === 'NA' ? null : jsonData[mainKey].undefined[0].Leiter, 'head', false, false, 33, 0);
             //add direct positions and subheader to page
             Object.keys(jsonData[mainKey]).forEach((subKey, j) => {
                 if(j%7===0 && j!=0) {
@@ -81,7 +81,7 @@ function addImportedDataToView(jsonData) {
                     currPage = new Page(mainKey+" 2", null, layerStart, null, null);
                     //add header to page
                     currPosText = jsonData[mainKey].undefined[0].Bezeichnung + " - " + jsonData[mainKey].undefined[0].Name;
-                    headerPos = new Position(null, currPage.pageId, currPosText, jsonData[mainKey].undefined[0].Leiter, 'head', false, false, 33, 0); 
+                    headerPos = new Position(null, currPage.pageId, currPosText, jsonData[mainKey].undefined[0].Leiter === 'NA' ? null : jsonData[mainKey].undefined[0].Leiter, 'head', false, false, 33, 0); 
                 }
                 if(j>6)j = (j % 7)+1;
                 if (j % 2) left = 28 - (j * 5.3) + 5.3;
@@ -90,7 +90,7 @@ function addImportedDataToView(jsonData) {
                     let prevPos = null;
                     jsonData[mainKey][subKey].forEach((pos, i) => {
                         if (subKey != 'undefined') {
-                            let currPos = new Position(parseInt(Date.now().toString() + i.toString()), currPage.pageId, pos.Bezeichnung + " - " + pos.Name, pos.Leiter, 'lc', false, false, left, i + 1);
+                            let currPos = new Position(parseInt(Date.now().toString() + i.toString()), currPage.pageId, pos.Bezeichnung + " - " + pos.Name, pos.Leiter === 'NA' ? null : pos.Leiter, 'lc', false, false, left, i + 1);
                             if (i === 0) new Connection(headerPos.positionId, currPos.positionId, 'down')
                             if (prevPos) new Connection(prevPos.positionId, currPos.positionId, 'left')
                             prevPos = currPos;
@@ -99,19 +99,19 @@ function addImportedDataToView(jsonData) {
 
                 } else {
                     pos = jsonData[mainKey][subKey].undefined[0];
-                    let currPos = new Position(parseInt(Date.now().toString() + j.toString()), currPage.pageId, pos.Bezeichnung + " - " + pos.Name, pos.Leiter, 'lc', false, false, left, 1);
+                    let currPos = new Position(parseInt(Date.now().toString() + j.toString()), currPage.pageId, pos.Bezeichnung + " - " + pos.Name, pos.Leiter === 'NA' ? null : pos.Leiter, 'lc', false, false, left, 1);
                     new Connection(headerPos.positionId, currPos.positionId, 'down')
                     //add the subHeaders extraPage
                     const currSubPage = new Page(pos.Bezeichnung, null, parseInt(pos.Level.slice(-1)), null, null);
                     let subPos = jsonData[mainKey][subKey].undefined[0];
-                    let subHeaderPos = new Position(null, currSubPage.pageId, subPos.Bezeichnung + " - " + subPos.Name, subPos.Leiter, 'lc', false, false, 33, 0);
+                    let subHeaderPos = new Position(null, currSubPage.pageId, subPos.Bezeichnung + " - " + subPos.Name, subPos.Leiter === 'NA' ? null : subPos.Leiter, 'lc', false, false, 33, 0);
                     Object.keys(jsonData[mainKey][subKey]).forEach((pos, l) => {
                         if (pos != 'undefined') {
                             if (l % 2) subLeft = 28 - (l * 5.3) + 5.3;
                             else subLeft = 28 + (l * 5.3);
                             let prevSubPos = null;
                             jsonData[mainKey][subKey][pos].forEach((subPos, k) => {
-                                let currSubPos = new Position(parseInt(Date.now().toString() + k.toString()), currSubPage.pageId, subPos.Bezeichnung + " - " + subPos.Name, subPos.Leiter, 'lc', false, false, subLeft, k + 1);
+                                let currSubPos = new Position(parseInt(Date.now().toString() + k.toString()), currSubPage.pageId, subPos.Bezeichnung + " - " + subPos.Name, subPos.Leiter === 'NA' ? null : subPos.Leiter, 'lc', false, false, subLeft, k + 1);
                                 if (k === 0) new Connection(subHeaderPos.positionId, currSubPos.positionId, 'down')
                                 if (prevSubPos) new Connection(prevSubPos.positionId, currSubPos.positionId, 'left')
                                 prevSubPos = currSubPos;
@@ -129,13 +129,13 @@ function addImportedDataToView(jsonData) {
                     let currPage = new Page(jsonData[mainKey][subKey][0].Bezeichnung, null, layerStart, null, null);
                     //add header to page
                     let currPosText = jsonData[mainKey][subKey][0].Bezeichnung + " - " + jsonData[mainKey][subKey][0].Name;
-                    let headerPos = new Position(null, currPage.pageId, currPosText, jsonData[mainKey][subKey][0].Leiter, 'head', false, false, 33, 1);
+                    let headerPos = new Position(null, currPage.pageId, currPosText, jsonData[mainKey][subKey][0].Leiter === 'NA' ? null : jsonData[mainKey][subKey][0].Leiter, 'head', false, false, 33, 1);
                     //add positions to page
                     jsonData[mainKey][subKey].forEach((pos, i) => {
                         if (i > 0){
                             if (i % 2) left = 28 - (i * 5.3) + 5.3;
                             else left = 28 + (i * 5.3);
-                            let currPos = new Position(parseInt(Date.now().toString() + i.toString()), currPage.pageId, pos.Bezeichnung + " - " + pos.Name, pos.Leiter, 'lc', false, false, left, 2);
+                            let currPos = new Position(parseInt(Date.now().toString() + i.toString()), currPage.pageId, pos.Bezeichnung + " - " + pos.Name, pos.Leiter === 'NA' ? null : pos.Leiter, 'lc', false, false, left, 2);
                             new Connection(headerPos.positionId, currPos.positionId, 'down')
                         }
                        
