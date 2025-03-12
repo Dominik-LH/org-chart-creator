@@ -299,6 +299,7 @@ class Position {
                 if (positionElement) {
                     const positionInstance = positionElement.positionInstance;
                     positionInstance.deletePosition();
+                    this.hideEditor(); // Hide the editor after deleting the position
                 }
             });
         } else {
