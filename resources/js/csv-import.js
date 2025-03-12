@@ -61,7 +61,6 @@ function groupPositions(jsonData) {
         });
     });
 
-    console.log(groupedData);
     addImportedDataToView(groupedData);
 }
 
