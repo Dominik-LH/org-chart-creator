@@ -111,15 +111,6 @@ async function createNewChart() {
     }
 }
 
-// Save chart on Ctrl+S
-document.addEventListener("keydown", function (event) {
-    if (event.ctrlKey && event.key === "s") {
-        event.preventDefault();
-        saveChart();
-    }
-});
-
-
 // Save chart to file
 async function saveChart() {
     updateSaveStatus('saving');

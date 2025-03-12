@@ -18,30 +18,6 @@ document.addEventListener('DOMContentLoaded', function () {
     if (window.innerWidth < 768) {
         openPopupById('mobile_warning');
     }
-    // Enter key event listener for triggering primary button in open popups
-    document.addEventListener('keydown', function (event) {
-        if (event.key === 'Enter') {
-            const openPopups = document.querySelectorAll('.popup_container[style*="display: block"]');
-            if (openPopups.length > 0) {
-                const primaryButton = openPopups[0].querySelector('.primary_button');
-                if (primaryButton) {
-                    primaryButton.click();
-                }
-            }
-        }
-    });
-    // Escape key event listener for closing open popups
-    document.addEventListener('keydown', function (event) {
-        if (event.key === 'Escape') {
-            const openPopups = document.querySelectorAll('.popup_container[style*="display: block"]');
-            if (openPopups.length > 0) {
-                const escButton = openPopups[0].querySelector('.popup_close');
-                if (escButton) {
-                    escButton.click();
-                }
-            }
-        }
-    });
 });
 
 // Function to open a popup by its ID

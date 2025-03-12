@@ -1,5 +1,5 @@
 /*  
-    This file contains general utility functions for the application.
+    This file contains general utility functions for the application.like ini.
 */
 // Initialization function to set up the application
 function init() {
@@ -9,17 +9,38 @@ function init() {
     initializeFileLogic(); // Initialize file logic
 }
 
+
 // Event listener for keyboard shortcuts
 document.addEventListener('keydown', function(event) {
-    if (event.ctrlKey && event.key === 'ArrowLeft') {
-        event.preventDefault();
-        addLeftConnection();
-    }
-});
-
-document.addEventListener('keydown', function(event) {
-    if (event.ctrlKey && event.key === 'ArrowDown') {
-        event.preventDefault();
-        addDownConnection();
+    if (event.ctrlKey) {
+        switch (event.key) {
+            case 'ArrowLeft':
+                addLeftConnection();
+                break;
+            case 'ArrowDown':
+                addDownConnection();
+                break;
+            case 's':
+                saveChart();
+                break;
+            case 'z':
+                // Add your custom logic here
+                break;
+            case 'y':
+                // Add your custom logic here
+                break;
+        }
+    } else {
+        switch (event.key) {
+            case 'Escape':
+                const openPopupsEsc = document.querySelectorAll('.popup_container[style*="display: block"]');
+                if (openPopupsEsc.length > 0) {
+                    const escButton = openPopupsEsc[0].querySelector('.popup_close');
+                    if (escButton) {
+                        escButton.click();
+                    }
+                }
+                break;
+        }
     }
 });
