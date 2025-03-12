@@ -90,7 +90,7 @@ async function addConnection(type) {
 }
 
 function selectPosition() {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
         const positions = document.querySelectorAll('.position');
         positions.forEach(position => {
             if (!position.classList.contains('selected')) position.classList.add('selectable'); // Highlight selectable positions
@@ -100,6 +100,7 @@ function selectPosition() {
                 child.style.pointerEvents = 'none'; // Disable clicks inside the position
             });
         });
+
         const onClick = function(event) {
             if (event.target.classList.contains('position') && !event.target.classList.contains('selected')) {
                 positions.forEach(pos => {
@@ -112,9 +113,32 @@ function selectPosition() {
                     });
                 });
                 event.target.classList.add('selected');
+                document.removeEventListener('click', outsideClickListener);
                 resolve(event.target.id.split('-')[1]);
             }
         };
+
+        const outsideClickListener = function(event) {
+            if (!event.target.closest('.position')) {
+                positions.forEach(pos => {
+                    pos.removeEventListener('click', onClick);
+                    pos.classList.remove('selectable'); // Remove highlight from selectable positions
+                    pos.style.pointerEvents = ''; // Re-enable clicks inside the position
+                    const children = pos.querySelectorAll('*');
+                    children.forEach(child => {
+                        child.style.pointerEvents = ''; // Re-enable clicks inside the position
+                    });
+                });
+                document.removeEventListener('click', outsideClickListener);
+                displayInfo('Selection cancelled.');
+                reject('Selection cancelled');
+            }
+        };
+
+        setTimeout(() => {
+            document.addEventListener('click', outsideClickListener);
+        }, 0);
+
         positions.forEach(position => {
             position.addEventListener('click', onClick);
         });
