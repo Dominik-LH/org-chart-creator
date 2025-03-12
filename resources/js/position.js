@@ -40,6 +40,18 @@ class Position {
         this.htmlElement.positionInstance = this;
         positionsArray.push(this);
         document.getElementById('pages_container').addEventListener('scroll', () => this.hideEditor());
+
+        // Add the click outside listener only once
+        if (!Position.clickOutsideListenerAdded) {
+            document.addEventListener('click', (event) => {
+                positionsArray.forEach(position => {
+                    if (!position.htmlElement.contains(event.target) && !position.editorHtmlElement.contains(event.target)) {
+                        position.hideEditor();
+                    }
+                });
+            });
+            Position.clickOutsideListenerAdded = true;
+        }
     }
 
     display() {
@@ -142,7 +154,6 @@ class Position {
                 updateConnection(this.positionId);
                 this.updatePosition(closestCanvas.id.split('-')[1], closestLayer.id.split('-')[1], x);
                 this.editorHtmlElement.relatedPositionElement = this.htmlElement;
-                this.displayEditor();
             });
     }
 
@@ -225,18 +236,11 @@ class Position {
 
     /* Editor functionality */
     addEditorEventListeners() {
-        //event listener for the position editor displayEditor / hideEditor
-        this.htmlElement.addEventListener('mouseenter', () => {
+        // Show editor on click
+        this.htmlElement.addEventListener('click', (event) => {
+            event.stopPropagation(); // Prevent the click event from propagating to the document
             this.editorHtmlElement.relatedPositionElement = this.htmlElement;
             this.displayEditor();
-        });
-        this.htmlElement.addEventListener('mouseleave', () => {
-            if (event.clientY > (this.htmlElement.getBoundingClientRect().top) + 10) {
-                this.hideEditor();
-            }
-        });
-        this.editorHtmlElement.addEventListener('mouseleave', () => {
-            this.hideEditor();
         });
     }
 
