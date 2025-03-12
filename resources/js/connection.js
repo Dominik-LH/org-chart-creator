@@ -89,8 +89,11 @@ async function addConnection(type) {
     if (autosaveActive) saveChart();
 }
 
+let selectionInProgress = false;
+
 function selectPosition() {
     return new Promise((resolve, reject) => {
+        selectionInProgress = true;
         const positions = document.querySelectorAll('.position');
         positions.forEach(position => {
             if (!position.classList.contains('selected')) position.classList.add('selectable'); // Highlight selectable positions
@@ -114,6 +117,7 @@ function selectPosition() {
                 });
                 event.target.classList.add('selected');
                 document.removeEventListener('click', outsideClickListener);
+                selectionInProgress = false;
                 resolve(event.target.id.split('-')[1]);
             }
         };
@@ -131,6 +135,7 @@ function selectPosition() {
                 });
                 document.removeEventListener('click', outsideClickListener);
                 displayInfo('Selection cancelled.');
+                selectionInProgress = false;
                 reject('Selection cancelled');
             }
         };

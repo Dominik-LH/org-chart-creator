@@ -17,9 +17,9 @@
     --static_secondary-color: #A4A4A4;
     --static_background-color: white;
     
-    --static_selected: #0cb2ff;
-    --static_selectable: #0f7c80;
-    --static_selectable_pulse: #8adfe2;
+    --static_selected: #3a96ff;
+    --static_selectable: var(--static_primary-color);
+    --static_selectable_pulse: #92e9ff;
 }
 
 /* Page */

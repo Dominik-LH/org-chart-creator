@@ -238,6 +238,7 @@ class Position {
     addEditorEventListeners() {
         // Show editor on click
         this.htmlElement.addEventListener('click', (event) => {
+            if (selectionInProgress) return; // Prevent showing editor if selection is in progress
             event.stopPropagation(); // Prevent the click event from propagating to the document
             this.editorHtmlElement.relatedPositionElement = this.htmlElement;
             this.displayEditor();
