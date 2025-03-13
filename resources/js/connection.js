@@ -3,7 +3,6 @@
     Ensure that these JS libraries are included:
     - leaderline.js
 */ 
-//TODO fix performance issue with connections on scroll
 //TODO fix that the connections created by the import are not removable
 var connectionsArray = [];
 
@@ -179,9 +178,24 @@ function updateConnection(positionId) {
     });
 }
 
-// Add event listener to update connections on scroll
-document.getElementById('pages_container').addEventListener('scroll', () => {
-    connectionsArray.forEach(connection => {
-        connection.element.position();
+let lastScrollTop = 0;
+
+function adjustSVGPositions() {
+    const container = document.getElementById('pages_container');
+    const scrollTop = container.scrollTop;
+    const deltaY = scrollTop - lastScrollTop;
+
+    const leaderLines = document.querySelectorAll('.leader-line');
+    leaderLines.forEach(svg => {
+        const currentTransform = svg.getAttribute('transform') || 'translate(0, 0)';
+        const translateValues = currentTransform.match(/translate\(([^,]+),\s*([^)]+)\)/);
+        const currentX = parseFloat(translateValues[1]);
+        const currentY = parseFloat(translateValues[2]);
+        svg.setAttribute('transform', `translate(${currentX}, ${currentY - deltaY})`);
     });
-});
+
+    lastScrollTop = scrollTop;
+}
+
+// Add event listener to adjust SVG positions on scroll
+document.getElementById('pages_container').addEventListener('scroll', adjustSVGPositions);

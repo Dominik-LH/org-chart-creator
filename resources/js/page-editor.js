@@ -4,7 +4,7 @@
     - html2canvas
     - Dragula
 */
-
+//TODO fix performance issue with pagesloding
 const pagesContainer = document.getElementById('pages_container');
 const smallPagesContainer = document.getElementById('small_pages_container');
 const pages = pagesContainer.getElementsByClassName('page');
