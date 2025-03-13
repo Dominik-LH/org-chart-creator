@@ -302,6 +302,7 @@ function deletePageAtIndex(index) {
             }
         });
 
+        updateConnections();
         updateSaveStatus('unsaved');
         addHistoryEntry();
         if (autosaveActive) saveChart();
@@ -340,6 +341,7 @@ function reorderPages(oldIndex, newIndex) {
             conn.element.position();
         });
 
+        updateConnections();
         updateSaveStatus('unsaved');
         addHistoryEntry();
         if (autosaveActive) saveChart();

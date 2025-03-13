@@ -178,6 +178,14 @@ function updateConnection(positionId) {
     });
 }
 
+//update all connections when a page is moved
+function updateConnections() {
+    connectionsArray.forEach(element => {
+        element.element.position();
+    });
+}
+
+// Adjust SVG positions on scroll
 let lastScrollTop = 0;
 
 function adjustSVGPositions() {
@@ -196,7 +204,6 @@ function adjustSVGPositions() {
     lastScrollTop = scrollTop;
 }
 
-// Add event listener to adjust SVG positions on scroll
 document.getElementById('pages_container').addEventListener('scroll', adjustSVGPositions);
 
 document.getElementById('pages_container').addEventListener('scroll', () => {

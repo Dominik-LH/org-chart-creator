@@ -32,7 +32,6 @@ function openPopupById(popupId) {
         }
         countOpenPopups++;
         if (popupId === 'page_menu') {
-            showSmallPagesLoader(); // Show loading animation immediately
             setTimeout(displaySmallPages, 0); // Call displaySmallPages after showing the popup
         }
     } else console.warn("Popup or overlay not found. Unable to open this popup");
@@ -48,6 +47,9 @@ function closePopupById(popupId) {
             overlay.style.zIndex = 997;
         }
         countOpenPopups--;
+        if (popupId === 'page_menu') {
+            document.getElementById('small_pages_container').innerHTML = ''; // Clear small pages container
+        }
     } else console.warn("Popup or overlay not found. Unable to close this popup");
 }
 

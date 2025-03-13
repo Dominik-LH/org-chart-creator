@@ -155,100 +155,56 @@
     border: 1px solid var(--primary-color);
 }
 
-/* Styles for the page editor */
-#small_pages_outer_container {
-    margin: 10px 0 10px 0;
-    display: flex;
-    justify-content: center;
-    max-height: 650px;
-    overflow-y: auto; 
-}
 
+
+
+/* Styles for the page editor */
 .small_pages_container {
+    overflow-y: auto; 
     display: flex;
     flex-wrap: wrap;
-    gap: 5px;
-    width: 875px;
-    cursor: default;
+    max-height: 30vw;
 }
 
-.small_page_wrapper {
-    display: flex;
-    gap: 5px;
+.small_page_wrapper{
+    margin: 10px;
+    margin-bottom: 15px;
+    display: inline-block;
+    width: 215.1px !important;
+    height: 120.99px !important;
+    overflow: hidden;
+    cursor: grab ;
+    box-shadow: 0 0px 8px rgba(0, 0, 0, 0.151) !important;
+    position: relative; /* Ensure the delete button is positioned relative to this container */
 }
+
 
 .small_page {
-    position: relative;
-    margin-bottom: 15px;
-    width: 200px;
-    height: calc(200px * 9/16);
-    box-shadow: 0 0px 4px rgba(0, 0, 0, 0.25);
-    overflow: hidden;
-    background-color: #f9f9f9;
-    cursor: grab;
+    box-shadow: none !important;
+    transform: scale(0.15);
+    transform-origin: top left;
+    pointer-events: none;
+    user-select: none;
 }
 
-.small_page:hover {
+.small_page_wrapper:hover {
     border-color: var(--edit-color);
-    box-shadow: 0 0px 8px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 0px 8px rgba(0, 0, 0, 0.25) !important;
 }
 
-.small_page:active,
-.small_page.dragging {
+.small_page_wrapper:active {
     cursor: grabbing;
-}
-
-body.dragging {
-    cursor: grabbing !important;
 }
 
 .delete_button {
     position: absolute;
     top: 5px;
     right: 5px;
-    padding: 0;
-    background-color: transparent;
-    border: none;
     cursor: pointer;
-    display: none; /* Hide by default */
-}
-
-.small_page:hover .delete_button {
-    display: block; /* Show on hover */
-}
-
-.spacer_div {
-    height: 20px;
-    min-width: 10px;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.spacer_div img {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     display: none;
-    filter: var(--page-editor-add-invert);
+    z-index: 1; /* Ensure it is above other elements */
 }
 
-.spacer_div:hover img {
-    display: block;
-}
-
-.loader_box { /* Animate loading box for small pages */
-    margin: 0px 15px 15px 0px;
-    background: linear-gradient(110deg, #f1f1f1 8%, #fafafa 18%, #f1f1f1 33%);
-    box-shadow: 0 0px 4px rgba(0, 0, 0, 0.25);
-    background-size: 200% 100%;
-    animation: 1.5s shine linear infinite;
-}
-
-@keyframes shine {
-    to {
-      background-position-x: -200%;
-    }
+.small_page_wrapper:hover .delete_button {
+    display: block; 
 }
