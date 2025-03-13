@@ -22,7 +22,6 @@ function undo() {
     
     updateSaveStatus('unsaved');
     if (autosaveActive) saveChart();
-    console.log("i "+editHistoryIndex);
 }
 
 function redo() {
@@ -32,7 +31,6 @@ function redo() {
     }
     editHistoryIndex++;
     const data = JSON.parse(editHistory[editHistoryIndex]);
-    console.log(data);
     // Apply the data to restore the state
     resetViewOnly();
     data.pages.forEach(pageData => {
@@ -47,7 +45,6 @@ function redo() {
 
     updateSaveStatus('unsaved');
     if (autosaveActive) saveChart();
-    console.log("i "+editHistoryIndex);
 }
 
 function addHistoryEntry() {
@@ -86,8 +83,4 @@ function addHistoryEntry() {
         editHistory.shift();
         editHistoryIndex--;
     }
-
-    console.log("new entry");
-    console.log("Historylength: "+ editHistory.length);
-    console.log(editHistory);
 }
