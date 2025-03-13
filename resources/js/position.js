@@ -163,6 +163,7 @@ class Position {
         this.layer = layer;
         this.x_position = (x_position / window.innerWidth) * 100; // Store x_position in vw units
         updateSaveStatus('unsaved');
+        addHistoryEntry();
         if (autosaveActive) saveChart();
     }
 
@@ -178,18 +179,21 @@ class Position {
         this.htmlElement.classList.add(type);
         this.positionType = type;
         updateSaveStatus('unsaved');
+        addHistoryEntry();
         if (autosaveActive) saveChart();
     }
     toggleFunc(isChecked) {
         this.func = isChecked;
         this.htmlElement.classList.toggle('func', isChecked);
         updateSaveStatus('unsaved');
+        addHistoryEntry();
         if (autosaveActive) saveChart();
     }
     toggleProj(isChecked) {
         this.proj = isChecked;
         this.htmlElement.classList.toggle('proj', isChecked);
         updateSaveStatus('unsaved');
+        addHistoryEntry();
         if (autosaveActive) saveChart();
     }
 
@@ -199,6 +203,7 @@ class Position {
         this.htmlElement.remove();
         positionsArray = positionsArray.filter(pos => pos != this);
         updateSaveStatus('unsaved');
+        addHistoryEntry();
         if (autosaveActive) saveChart();
     }
     
@@ -217,11 +222,13 @@ class Position {
         this.htmlElement.querySelector('.position_text').addEventListener('input', (event) => {
             this.text = event.target.innerText;
             updateSaveStatus('unsaved');
+            addHistoryEntry();
             if (autosaveActive) saveChart();
         });
         this.htmlElement.querySelector('.position_res_per').addEventListener('input', (event) => {
             this.responsiblePerson = event.target.value;
             updateSaveStatus('unsaved');
+            addHistoryEntry();
             if (autosaveActive) saveChart();
         });
         //event listeners for the editor
@@ -356,6 +363,7 @@ function addPosition() {
 
     const newPosition = new Position(null, currentPage.id);
     updateSaveStatus('unsaved');
+    addHistoryEntry();
     // Scroll to the page if the new position is outside of the screen
     const newPositionRect = newPosition.htmlElement.getBoundingClientRect();
     if (newPositionRect.top < 0 || newPositionRect.bottom > window.innerHeight) {

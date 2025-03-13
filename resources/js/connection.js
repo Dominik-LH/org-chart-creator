@@ -3,6 +3,8 @@
     Ensure that these JS libraries are included:
     - leaderline.js
 */ 
+//TODO fix performance issue with connections on scroll
+//TODO fix that the connections created by the import are not removable
 var connectionsArray = [];
 
 class Connection {
@@ -86,6 +88,7 @@ async function addConnection(type) {
     resetSelectionFeedback(selectedPositionId1);
     resetSelectionFeedback(selectedPositionId2);
     updateSaveStatus('unsaved');
+    addHistoryEntry();
     if (autosaveActive) saveChart();
 }
 

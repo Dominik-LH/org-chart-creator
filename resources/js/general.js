@@ -21,13 +21,14 @@ document.addEventListener('keydown', function(event) {
                 addDownConnection();
                 break;
             case 's':
+                event.preventDefault();
                 saveChart();
                 break;
             case 'z':
-                // Add your custom logic here
+                undo();
                 break;
             case 'y':
-                // Add your custom logic here
+                redo();
                 break;
         }
     } else {

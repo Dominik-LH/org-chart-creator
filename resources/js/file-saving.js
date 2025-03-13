@@ -94,6 +94,7 @@ async function loadChartFromFile(file) {
         data.connections.forEach(connectionData => {
             new Connection(connectionData.positionId1, connectionData.positionId2, connectionData.type);
         });
+        addHistoryEntry(); // Add initial history entry after loading the chart
     };
     reader.readAsText(file);
 }
@@ -104,10 +105,12 @@ async function createNewChart() {
         if (await runDeleteConfirmation("There are Unsaved Changes. If you continue these changes will be lost. This action cannot be undone!", "Continue", "Override current Changes?")) {
             reset();
             saveChartAs();
+            addHistoryEntry(); // Add initial history entry after creating a new chart
         }
     } else {
         reset();
         saveChartAs();
+        addHistoryEntry(); // Add initial history entry after creating a new chart
     }
 }
 
@@ -249,7 +252,27 @@ function reset() {
     //reset page container
     while (pageContainer.firstChild) {
         pageContainer.removeChild(pageContainer.firstChild);
-    }
+    } 
+    //reset history
+    editHistory = [];
+    editHistoryIndex = -1; 
+}
+
+function resetViewOnly(){
+    //reset id counter
+    pageIdCounter = 0;
+    //clean up the connections
+    connectionsArray.forEach(con => {
+        con.element.remove();
+    });
+    //reset arrays
+    pagesArray = [];
+    positionsArray = [];
+    connectionsArray = [];
+    //reset page container
+    while (pageContainer.firstChild) {
+        pageContainer.removeChild(pageContainer.firstChild);
+    } 
 }
 
 // Confirm exit if there are unsaved changes

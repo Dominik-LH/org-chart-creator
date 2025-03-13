@@ -149,6 +149,7 @@ function addImportedDataToView(jsonData) {
 
 
     updateSaveStatus('unsaved');
+    addHistoryEntry();
     if (autosaveActive) saveChart();
 }
 

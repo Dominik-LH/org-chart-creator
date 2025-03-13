@@ -105,6 +105,7 @@ class Page {
     changeTitle(newTitle) {
         this.title = newTitle;
         updateSaveStatus('unsaved');
+        addHistoryEntry();
         if (autosaveActive) saveChart();
     }
 
@@ -112,6 +113,7 @@ class Page {
     changeSubtitle(newSubtitle) {
         this.subtitle = newSubtitle;
         updateSaveStatus('unsaved');
+        addHistoryEntry();
         if (autosaveActive) saveChart();
     }
 
@@ -149,6 +151,7 @@ class Page {
         }
 
         updateSaveStatus('unsaved');
+        addHistoryEntry();
         if (autosaveActive) saveChart();
     }
 
@@ -246,6 +249,7 @@ class Page {
             if (event.target.innerHTML !== originalUnions) {
                 this.personalUnions = event.target.innerHTML;
                 updateSaveStatus('unsaved');
+                addHistoryEntry();
                 if (autosaveActive) saveChart();
                 originalUnions = event.target.innerHTML;
             }
@@ -263,6 +267,7 @@ function addPage(noScroll) {
         });
     }
     updateSaveStatus('unsaved');
+    addHistoryEntry();
     if (autosaveActive) saveChart();
 }
 
@@ -298,6 +303,7 @@ function deletePageAtIndex(index) {
         });
 
         updateSaveStatus('unsaved');
+        addHistoryEntry();
         if (autosaveActive) saveChart();
     } else {
         console.error(`Invalid index ${index}`);
@@ -335,6 +341,7 @@ function reorderPages(oldIndex, newIndex) {
         });
 
         updateSaveStatus('unsaved');
+        addHistoryEntry();
         if (autosaveActive) saveChart();
     } else {
         console.error(`Invalid indices: oldIndex ${oldIndex}, newIndex ${newIndex}`);
