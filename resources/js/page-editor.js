@@ -4,10 +4,9 @@
     - html2canvas
     - Dragula
 */
-//TODO fix performance issue with pagesloding
 const pagesContainer = document.getElementById('pages_container');
 const smallPagesContainer = document.getElementById('small_pages_container');
-var drake =  window.dragula();
+var drake;
 
 // Function to display small versions of the pages
 function displaySmallPages() {
@@ -35,7 +34,7 @@ function displaySmallPages() {
     });
 
     // Add drag and drop functionality to the small pages
-    drake.destroy();
+    if(drake) drake.destroy();
     drake = dragula([smallPagesContainer], {
     }).on('drag', (el) => {
         el.style.cursor = 'grabbing';

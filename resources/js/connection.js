@@ -4,6 +4,7 @@
     - leaderline.js
 */ 
 //TODO fix that the connections created by the import are not removable
+//TODO fix left connection not connecting correctly if the positions arent on the same x axis
 var connectionsArray = [];
 
 class Connection {
