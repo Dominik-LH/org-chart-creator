@@ -70,13 +70,10 @@ async function addConnection(type) {
     displayInfo('Select the positions you want to connect.');
     const selectedPositionId1 = await selectPosition();
     const selectedPositionId2 = await selectPosition();
-    console.log(selectedPositionId1, selectedPositionId2);
     const existingConnection = connectionsArray.find(conn => 
         (conn.positionId1 == selectedPositionId1 && conn.positionId2 == selectedPositionId2) ||
         (conn.positionId1 == selectedPositionId2 && conn.positionId2 == selectedPositionId1)
     );
-    console.log(existingConnection);
-    console.log(connectionsArray);
     if (existingConnection && existingConnection.type == type) {
         displayInfo('Removing the connection.');
         existingConnection.element.remove();

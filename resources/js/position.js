@@ -100,6 +100,7 @@ class Position {
                 });
             })
             .on('dragmove', (event) => {
+                if (selectionInProgress) return; // Prevent dragging if selection is in progress
                 //update the x and y position of the element while dragging (dragmove)
                 this.hideEditor();
                 x += event.dx;
