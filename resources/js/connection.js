@@ -185,8 +185,7 @@ function adjustSVGPositions() {
     const scrollTop = container.scrollTop;
     const deltaY = scrollTop - lastScrollTop;
 
-    const leaderLines = document.querySelectorAll('.leader-line');
-    leaderLines.forEach(svg => {
+    document.querySelectorAll('.leader-line').forEach(svg => {
         const currentTransform = svg.getAttribute('transform') || 'translate(0, 0)';
         const translateValues = currentTransform.match(/translate\(([^,]+),\s*([^)]+)\)/);
         const currentX = parseFloat(translateValues[1]);
@@ -199,3 +198,15 @@ function adjustSVGPositions() {
 
 // Add event listener to adjust SVG positions on scroll
 document.getElementById('pages_container').addEventListener('scroll', adjustSVGPositions);
+
+document.getElementById('pages_container').addEventListener('scroll', () => {
+    clearTimeout(window.scrollTimeout);
+    window.scrollTimeout = setTimeout(() => {
+        document.querySelectorAll('.leader-line').forEach(svg => {
+            svg.setAttribute('transform', 'translate(0, 0)');
+        });
+        connectionsArray.forEach(element => {
+            element.element.position();
+        });
+    }, 100);
+});
