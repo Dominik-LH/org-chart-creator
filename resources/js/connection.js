@@ -28,7 +28,7 @@ class Connection {
         return new LeaderLine(
             document.getElementById('position-' + position1),
             document.getElementById('position-' + position2), {
-                color: 'var(--primary-color)',
+                color: 'var(--static_primary-color)',
                 size: 1,
                 endPlug: 'behind',
                 path: 'grid',
