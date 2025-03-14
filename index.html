@@ -103,14 +103,16 @@
                 <div onclick="createNewChart()">New</div>
                 <div onclick="loadChart()">Open</div>
                 <hr>
-                <div onclick="saveChart()">Save (Ctrl+S)</div>
+                <div onclick="saveChart()">Save <i>(Ctrl+S)</i></div>
                 <div onclick="saveChartAs()">Save As</div>
                 <hr>
                 <div onclick="openPopupById('export_menu')">Export as PDF</div>
                 <div onclick="exportToCSV()">Export as CSV</div>
             </div> 
             <div id="header_edit_menu" class="header_submenu"> <!--Edit menu-->
-                <!--TODO add undo redo-->
+                <div onclick="undo()">Undo <i>(Ctrl+Z)</i></div>
+                <div onclick="redo()">Redo <i>(Ctrl+Y)</i></div>
+                <hr>
                 <div onclick="openPopupById('page_menu')">Page Editor</div>
                 <hr>
                 <div onclick="openPopupById('import_menu')">Import CSV</div>
