@@ -1,7 +1,6 @@
 /*  
     This File contains the Page class and related functions.
 */
-//TODO fixbug with wrong page after reload and page switch
 var pagesArray = []; //Chart 
 var pageIdCounter = 0; // Initialize pageIdCounter
 
@@ -293,8 +292,11 @@ function deletePageAtIndex(index) {
         // Remove the page from the array and update pageIds
         deletedPage.htmlElement.remove();
         pagesArray.splice(index, 1);
-        pagesArray.forEach((page, idx) => page.pageId = idx);;
-
+        pagesArray.forEach((page, idx) => {
+            page.pageId = idx;
+            page.htmlElement.id = idx;
+            page.htmlElement.querySelector('.canvas').id = `canvas-${idx}`;
+        });
 
         // Update the pageIds of the positions
         positionsArray.forEach(position => {
@@ -333,9 +335,13 @@ function reorderPages(oldIndex, newIndex) {
         });
 
         // Update the View of the pages
-        pagesArray.forEach(page => {
+        pagesArray.forEach((page, idx) => {
             pageContainer.appendChild(page.htmlElement);
+            page.pageId = idx;
+            page.htmlElement.id = idx;
+            page.htmlElement.querySelector('.canvas').id = `canvas-${idx}`;
         });
+
 
         // Update the connections
         connectionsArray.forEach(conn => {
