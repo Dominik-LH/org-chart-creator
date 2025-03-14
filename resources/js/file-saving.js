@@ -182,7 +182,7 @@ async function saveChartAs() {
             pages: pagesArray.map(page => ({
                 title: page.title,
                 subtitle: page.subtitle,
-                layerStart: layerStart,
+                layerStart: page.layerStart,
                 layerIndicators: page.layerIndicators,
                 personalUnions: page.personalUnions
             })),
