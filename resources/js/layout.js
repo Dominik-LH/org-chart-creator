@@ -118,7 +118,8 @@ function updateSaveStatus(status) {
     } else console.warn("Invalid save status. Unable to update save status");
 }
 
-// Set the theme to dark or light
+/*settings*/
+// Theme
 function setDarkTheme(bool) {
     if (!bool) {
         root.classList.replace('dark_theme','light_theme');
@@ -135,7 +136,6 @@ function setDarkTheme(bool) {
     }
 }
 
-// Load the theme preference from local storage
 function loadThemePreference() {
     const theme = localStorage.getItem('theme');
     if (theme) {
@@ -151,14 +151,15 @@ function loadThemePreference() {
     }
 }
 
-// Set the autosave preference
+//autosave
 function setAutosave(bool) {
     autosaveActive = bool;
-    localStorage.setItem('autosave', bool);
-    saveChart();
+    if(bool){
+        localStorage.removeItem('autosave');
+        saveChart();
+    } else localStorage.setItem('autosave', bool);
 }
 
-// Load the autosave preference from local storage
 function loadAutosavePreference() {
     const autosave = localStorage.getItem('autosave');
     if (autosave !== null) {
@@ -167,10 +168,41 @@ function loadAutosavePreference() {
             autosaveToggle.checked = autosaveActive;
         }
     } else {
-        autosaveActive = false;
+        autosaveActive = true;
         if (autosaveToggle) {
-            autosaveToggle.checked = false;
+            autosaveToggle.checked = true;
         }
+    }
+}
+
+// Show or hide names on the chart
+function hideNames(bool) {
+    if (bool) {
+        document.querySelectorAll('.position_res_per').forEach(element => {
+            element.style.display = 'none';
+        });
+    } else {
+        document.querySelectorAll('.position_res_per').forEach(element => {
+            element.style.display = 'block';
+        });
+    }
+}
+
+
+// show or hide placeholder
+function hidePlaceholder(bool) {
+    if (bool) {
+        console.log('hide');
+        document.querySelectorAll('input').forEach(element => {
+            element.setAttribute('data-placeholder', element.getAttribute('placeholder'));
+            element.removeAttribute('placeholder');
+        });
+    } else {
+        console.log('show');
+        document.querySelectorAll('input').forEach(element => {
+            element.setAttribute('placeholder', element.getAttribute('data-placeholder'));
+            element.removeAttribute('data-placeholder');
+        });
     }
 }
 
@@ -179,6 +211,8 @@ function loadSettings() {
     loadThemePreference();
     loadAutosavePreference();
 }
+
+
 
 /*header submenu*/
 // Open a submenu
@@ -231,18 +265,3 @@ menuItems.forEach(({ item, menu }) => {
         closeMenu(menu.id, item);
     });
 });
-
-/*settings actions*/
-// Add event listener for dark theme toggle
-if (darkThemeToggle) {
-    darkThemeToggle.addEventListener('change', function () {
-        setDarkTheme(darkThemeToggle.checked);
-    });
-}
-
-// Add event listener for autosave toggle
-if (autosaveToggle) {
-    autosaveToggle.addEventListener('change', function () {
-        setAutosave(autosaveToggle.checked);
-    });
-}

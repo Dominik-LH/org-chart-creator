@@ -42,19 +42,8 @@ function exportPDF(withNames, title) {
     setLoaderMessage('Preparing export');
 
     // Remove unwanted content
-    let originalPlaceholders = [];
-    const inputElements = document.querySelectorAll('input');
-    inputElements.forEach((input, i) => {
-        originalPlaceholders[i] = input.placeholder;
-        input.placeholder = '';
-    });
-
-    let originalNamesDisplay = [];
-    const nameElements = document.querySelectorAll('.position_res_per');
-    if (!withNames) nameElements.forEach((element, i) => {
-        originalNamesDisplay[i] = element.style.display;
-        element.style.display = 'none';
-    });
+    hideNames(withNames);
+    hidePlaceholder(true);
 
     // Convert the page to an image
     let pageImages = new Array(pages.length);
@@ -67,13 +56,8 @@ function exportPDF(withNames, title) {
                 processedPages++;
                 if (processedPages === pages.length) {
                     // Re-add content
-                    inputElements.forEach((input, i) => {
-                        input.placeholder = originalPlaceholders[i];
-                    });
-
-                    if (!withNames) nameElements.forEach((element, i) => {
-                        element.style.display = originalNamesDisplay[i];
-                    });
+                    hideNames(false);
+                    hidePlaceholder(false);
 
                     exportLeaderLines(pageImages, title);
                 }

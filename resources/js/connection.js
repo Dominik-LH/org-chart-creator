@@ -3,7 +3,7 @@
     Ensure that these JS libraries are included:
     - leaderline.js
 */ 
-//TODO fix left connection not connecting correctly if the positions arent on the same x axis
+// fix left connection not connecting correctly if the positions arent on the same x axis
 var connectionsArray = [];
 
 class Connection {

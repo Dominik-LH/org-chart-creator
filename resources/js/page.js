@@ -1,6 +1,7 @@
 /*  
     This File contains the Page class and related functions.
 */
+//TODO fixbug with wrong page after reload and page switch
 var pagesArray = []; //Chart 
 var pageIdCounter = 0; // Initialize pageIdCounter
 
