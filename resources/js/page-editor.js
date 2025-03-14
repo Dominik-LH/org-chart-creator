@@ -48,7 +48,7 @@ function displaySmallPages() {
 
 // Function to delete a page at a specific index
 async function call_deletePageAtIndex(index) {
-    if (await runDeleteConfirmation("This action cannot be undone!", "Delete Page", "Delete whole Page?")) {
+    if (await runDeleteConfirmation("Do you want to delete the entire page with the positions?", "Delete Page", "Delete")) {
         deletePageAtIndex(index);
         const wrapper = smallPagesContainer.querySelectorAll('.small_page_wrapper');
         if (index < wrapper.length) {
