@@ -8,7 +8,10 @@ function init() {
     updateSaveStatus('none'); // Initialize save status
     initializeFileLogic(); // Initialize file logic
 }
-//TODo prevent sty z/y spam
+
+// Flag to prevent undo/redo spamming
+let isUndoRedoAllowed = true;
+
 
 // Event listener for keyboard shortcuts
 document.addEventListener('keydown', function(event) {
@@ -25,10 +28,18 @@ document.addEventListener('keydown', function(event) {
                 saveChart();
                 break;
             case 'z':
-                undo();
+                if (isUndoRedoAllowed) {
+                    isUndoRedoAllowed = false;
+                    undo();
+                    isUndoRedoAllowed = true;
+                } else console.log('undo spam not allowed');
                 break;
             case 'y':
-                redo();
+                if (isUndoRedoAllowed) {
+                    isUndoRedoAllowed = false;
+                    redo();
+                    isUndoRedoAllowed = true;
+                } else console.log('redo spam not allowed');
                 break;
         }
     } else {
