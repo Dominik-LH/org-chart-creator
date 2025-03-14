@@ -3,7 +3,6 @@
     Ensure that these JS libraries are included
     - PapaParse
 */
-//TODO feat correct level
 function importCSV(file) {
     Papa.parse(file, {
         header: true,
@@ -69,7 +68,7 @@ function addImportedDataToView(jsonData) {
         if (jsonData[mainKey].undefined) {
             //create new Page
             let layerStart = parseInt(jsonData[mainKey].undefined[0].Level.slice(-1));
-            let currPage = new Page(jsonData[mainKey].undefined[0].Bezeichnung, null, layerStart, null, null);
+            let currPage = new Page(jsonData[mainKey].undefined[0].Bezeichnung, jsonData[mainKey].undefined[0].Name, layerStart, null, null);
             //add header to page
             let currPosText = jsonData[mainKey].undefined[0].Bezeichnung + " - " + jsonData[mainKey].undefined[0].Name;
             let headerPos = new Position(null, currPage.pageId, currPosText, jsonData[mainKey].undefined[0].Leiter === 'NA' ? null : jsonData[mainKey].undefined[0].Leiter, 'head', false, false, 33, 0);
@@ -78,7 +77,7 @@ function addImportedDataToView(jsonData) {
                 if(j%7===0 && j!=0) {
                     //create new Page
                     layerStart = parseInt(jsonData[mainKey].undefined[0].Level.slice(-1));
-                    currPage = new Page(mainKey+" 2", null, layerStart, null, null);
+                    currPage = new Page(mainKey+" 2", jsonData[mainKey].undefined[0].Name, layerStart, null, null);
                     //add header to page
                     currPosText = jsonData[mainKey].undefined[0].Bezeichnung + " - " + jsonData[mainKey].undefined[0].Name;
                     headerPos = new Position(null, currPage.pageId, currPosText, jsonData[mainKey].undefined[0].Leiter === 'NA' ? null : jsonData[mainKey].undefined[0].Leiter, 'head', false, false, 33, 0); 
@@ -102,7 +101,7 @@ function addImportedDataToView(jsonData) {
                     let currPos = new Position(parseInt(Date.now().toString() + j.toString()), currPage.pageId, pos.Bezeichnung + " - " + pos.Name, pos.Leiter === 'NA' ? null : pos.Leiter, 'lc', false, false, left, 1);
                     new Connection(headerPos.positionId, currPos.positionId, 'down')
                     //add the subHeaders extraPage
-                    const currSubPage = new Page(pos.Bezeichnung, null, parseInt(pos.Level.slice(-1)), null, null);
+                    const currSubPage = new Page(pos.Bezeichnung, pos.name, parseInt(pos.Level.slice(-1)), null, null);
                     let subPos = jsonData[mainKey][subKey].undefined[0];
                     let subHeaderPos = new Position(null, currSubPage.pageId, subPos.Bezeichnung + " - " + subPos.Name, subPos.Leiter === 'NA' ? null : subPos.Leiter, 'lc', false, false, 33, 0);
                     Object.keys(jsonData[mainKey][subKey]).forEach((pos, l) => {
@@ -126,7 +125,7 @@ function addImportedDataToView(jsonData) {
                 if (Array.isArray(jsonData[mainKey][subKey])) {
                     //add page 
                     let layerStart = parseInt(jsonData[mainKey][subKey][0].Level.slice(-1));
-                    let currPage = new Page(jsonData[mainKey][subKey][0].Bezeichnung, null, layerStart, null, null);
+                    let currPage = new Page(jsonData[mainKey][subKey][0].Bezeichnung, jsonData[mainKey][subKey][0].Name, layerStart, null, null);
                     //add header to page
                     let currPosText = jsonData[mainKey][subKey][0].Bezeichnung + " - " + jsonData[mainKey][subKey][0].Name;
                     let headerPos = new Position(null, currPage.pageId, currPosText, jsonData[mainKey][subKey][0].Leiter === 'NA' ? null : jsonData[mainKey][subKey][0].Leiter, 'head', false, false, 33, 1);

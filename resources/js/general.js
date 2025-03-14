@@ -45,6 +45,14 @@ document.addEventListener('keydown', function(event) {
                     setTimeout(resetUndoRedoFlag, 100); 
                 } else console.log('redo spam not allowed');
                 break;
+            case 'p':
+                event.preventDefault();
+                openPopupById('export_menu')
+                break;
+            case 'o':
+                event.preventDefault();
+                loadChart()
+                break;
         }
     } else {
         switch (event.key) {

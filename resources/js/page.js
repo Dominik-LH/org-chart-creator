@@ -13,7 +13,7 @@ class Page {
     title;
     subtitle;
     layerStart = 1;
-    layerIndicators = [true, false, false, false, false, false, false, false, false, false];
+    layerIndicators = [true, true, false, false, false, false, false, false, false, false];
     personalUnions;
 
     htmlElement;
