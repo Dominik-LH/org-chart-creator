@@ -199,12 +199,12 @@ class Position {
     }
 
     //delete the position
-    deletePosition() {
+    deletePosition(addNoHistoryEntry) {
         removeAssociatedConnections(this.positionId);
         this.htmlElement.remove();
         positionsArray = positionsArray.filter(pos => pos != this);
         updateSaveStatus('unsaved');
-        addHistoryEntry();
+        if(!addNoHistoryEntry)addHistoryEntry();
         if (autosaveActive) saveChart();
     }
     

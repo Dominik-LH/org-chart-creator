@@ -285,7 +285,7 @@ function deletePageAtIndex(index) {
         // Delete all positions of the page
         positionsArray.forEach(position => {
             if (position.pageId === deletedPage.pageId) {
-                position.deletePosition();
+                position.deletePosition(true);
             }
         });
 
