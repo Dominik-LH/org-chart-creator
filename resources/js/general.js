@@ -12,6 +12,10 @@ function init() {
 // Flag to prevent undo/redo spamming
 let isUndoRedoAllowed = true;
 
+// Function to reset the undo/redo flag
+function resetUndoRedoFlag() {
+    isUndoRedoAllowed = true;
+}
 
 // Event listener for keyboard shortcuts
 document.addEventListener('keydown', function(event) {
@@ -29,16 +33,16 @@ document.addEventListener('keydown', function(event) {
                 break;
             case 'z':
                 if (isUndoRedoAllowed) {
-                    isUndoRedoAllowed = false;
                     undo();
-                    isUndoRedoAllowed = true;
+                    isUndoRedoAllowed = false;
+                    setTimeout(resetUndoRedoFlag, 100); 
                 } else console.log('undo spam not allowed');
                 break;
             case 'y':
                 if (isUndoRedoAllowed) {
-                    isUndoRedoAllowed = false;
                     redo();
-                    isUndoRedoAllowed = true;
+                    isUndoRedoAllowed = false;
+                    setTimeout(resetUndoRedoFlag, 100); 
                 } else console.log('redo spam not allowed');
                 break;
         }
