@@ -161,12 +161,12 @@ function setAutosave(bool) {
 }
 
 function loadAutosavePreference() {
-    const autosave = localStorage.getItem('autosave');
-    if (autosave !== null) {
-        autosaveActive = autosave === 'true';
+    if (localStorage.getItem('autosave')) {
+        autosaveActive = false;
         if (autosaveToggle) {
-            autosaveToggle.checked = autosaveActive;
+            autosaveToggle.checked = false;
         }
+        displayInfo('Autosave is disabled');
     } else {
         autosaveActive = true;
         if (autosaveToggle) {
