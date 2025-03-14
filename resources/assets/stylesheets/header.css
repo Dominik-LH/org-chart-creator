@@ -104,7 +104,7 @@ header {
 
 .header_submenu hr {
     margin: 0;
-    border: .1px inset var(--popup-border-color);
+    border: .1px inset var(--popup-hr-color);
 }
 
 .header_submenu div i {
