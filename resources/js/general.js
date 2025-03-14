@@ -8,7 +8,7 @@ function init() {
     updateSaveStatus('none'); // Initialize save status
     initializeFileLogic(); // Initialize file logic
 }
-//TOD prevent sty z/y spam
+//TODo prevent sty z/y spam
 
 // Event listener for keyboard shortcuts
 document.addEventListener('keydown', function(event) {

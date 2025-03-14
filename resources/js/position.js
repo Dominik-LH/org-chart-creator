@@ -98,6 +98,7 @@ class Position {
                 document.querySelectorAll('.layer').forEach(layer => {
                     layer.style.backgroundColor = 'rgba(0, 0, 0, 0.02)';
                 });
+                event.target.style.userSelect = 'none'; // Deactivate user select during drag
             })
             .on('dragmove', (event) => {
                 if (selectionInProgress) return; // Prevent dragging if selection is in progress
@@ -110,6 +111,7 @@ class Position {
                 updateConnection(this.positionId);
             })
             .on('dragend', (event) => {
+                event.target.style.userSelect = ''; // Reactivate user select after drag
                 //reset the background color of all layers
                 document.querySelectorAll('.layer').forEach(layer => {
                     layer.style.backgroundColor = 'transparent';

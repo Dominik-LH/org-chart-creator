@@ -1,6 +1,8 @@
 /*  
     This File contains the Page class and related functions.
 */
+//TODO feat multiple positions select 
+
 var pagesArray = []; //Chart 
 var pageIdCounter = 0; // Initialize pageIdCounter
 

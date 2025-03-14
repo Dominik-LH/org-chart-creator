@@ -3,7 +3,7 @@
     Ensure that these JS libraries are included
     - PapaParse
 */
-//TODO correct level
+//TODO feat correct level
 function importCSV(file) {
     Papa.parse(file, {
         header: true,
