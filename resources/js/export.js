@@ -41,7 +41,6 @@ function exportPDF(withNames, title) {
     });
 
     //add title slide
-    //todo add background
     pdf.setTextColor(0, 35, 95);
     pdf.setFont('LufthansaHeadBold');
 
@@ -151,13 +150,22 @@ function exportPDF(withNames, title) {
             pdf.setFillColor(...fillColor);
             pdf.rect(x, y, 123.59, 36.55, "FD");
             
-
             //draw text
-             //TODO add boldnes to text
             pdf.setFont('LufthansaText');
             pdf.setFontSize(11.5);
             pdf.setTextColor(...color);
-            pdf.text(text, x + 3, y + 9, { maxWidth: 113.59});
+
+            const textParts = text.split(' - ');
+            if (textParts.length > 1) {
+                pdf.setFont('LufthansaHeadBold');
+                pdf.text(textParts[0], x + 3, y + 9, { maxWidth: 113.59 });
+                pdf.setFont('LufthansaText');
+                const indent = " ".repeat(pdf.getTextWidth(textParts[0])/2);
+                pdf.text(indent + '  - ' + textParts.slice(1).join(' - '), x  + 3 , y + 9, { maxWidth: 113.59});
+            } else {
+                pdf.setFont('LufthansaHeadBold');
+                pdf.text(text, x + 3, y + 9, { maxWidth: 113.59 });
+            }
 
             if (withNames && resPer) {
                 pdf.text(resPer, (x + 123.59 - 3), (y + 36.55 - 3), { align: "right" });
