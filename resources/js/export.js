@@ -3,12 +3,9 @@
     Currently, the slides get exported by creating images from the pages and adding these to a PDF file.
     Ensure that these JS libraries are included:
     - jsPDF
-    - dom-to-image
     - WebFontLoader
 */
 
-//TODO fix bug with leaderlines
-const titleSlideImage = "resources/assets/img/export/title_slide_background.jpg";
 
 // Load the custom font using WebFontLoader
 function initExport() {
@@ -44,11 +41,18 @@ function exportPDF(withNames, title) {
     });
 
     //add title slide
-    pdf.addImage(titleSlideImage, "JPEG", 0, 0, 960, 540); //TODO create title slide by code
-    pdf.setTextColor(255, 255, 255);
-    pdf.setFontSize(50);
+    //todo add background
+    pdf.setTextColor(0, 35, 95);
     pdf.setFont('LufthansaHeadBold');
-    pdf.text(title, 40, 200, { align: "left" });
+
+    pdf.setFillColor(235,235,235);
+    pdf.rect(10, 30, 940, 480, "F");
+    
+    pdf.setFontSize(60);
+    pdf.text(title, 30, 200, { align: "left" });
+    
+    pdf.setFontSize(20);
+    pdf.text("LUFTHANSA GROUP", 960 - 20, 540 - 10, { align: "right" });
 
 
 
@@ -103,7 +107,6 @@ function exportPDF(withNames, title) {
 
         //add positions
         //add func int position background
-        
         positionsArray.filter(position => position.pageId === page.pageId && position.func).forEach(position => {
             const x = 5 + position.x_position * (0.01 * 1280);
             const y = 70  + position.layer * 42.87;
