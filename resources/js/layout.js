@@ -192,13 +192,11 @@ function hideNames(bool) {
 // show or hide placeholder
 function hidePlaceholder(bool) {
     if (bool) {
-        console.log('hide');
         document.querySelectorAll('input').forEach(element => {
             element.setAttribute('data-placeholder', element.getAttribute('placeholder'));
             element.removeAttribute('placeholder');
         });
     } else {
-        console.log('show');
         document.querySelectorAll('input').forEach(element => {
             element.setAttribute('placeholder', element.getAttribute('data-placeholder'));
             element.removeAttribute('data-placeholder');
