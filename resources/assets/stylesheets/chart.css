@@ -4,17 +4,17 @@
 
 :root {
     /* Variables for chart colors */
-    --funct-int-color: #d9d9d9b7;
+    --funct-int-color: rgba(217, 217, 217, 0.718);
     --lc-color: #00235F;
     --tl-color: #626262;
-    --ec-expert-color: rgb(38, 158, 38);
+    --ec-expert-color: #269e26;
     
     /* Static styling colors for theme ignorance */
     --static_text-color: #000000;
     --static_primary-color: #00235F;
     --static_primary-color-preview: #00235f93;
     --static_primary-color-hover: #002a74;
-    --static_secondary-color: #A4A4A4;
+    --static_secondary-color: #a4a4a4;
     --static_background-color: white;
     
     --static_selected: #3a96ff;

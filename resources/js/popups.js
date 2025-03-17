@@ -148,8 +148,9 @@ function call_importCSV() {
 
 // Function to call export PDF action
 function call_exportPDF(withNames, title) {
-    exportPDF(withNames, title);
     closePopupById('export_menu');
+    showLoader();
+    exportPDF(withNames, title);
 }
 
 // Function to call create new chart action
