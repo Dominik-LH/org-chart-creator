@@ -11,18 +11,6 @@
     font-family: 'LufthansaText';
     src: url('/resources/assets/fonts/LufthansaTextWeb-Regular.ttf') format('truetype');
 }
-@font-face {
-    font-family: 'LufthansaTextItalic';
-    src: url('/resources/assets/fonts/LufthansaTextWeb-RegularItalic.ttf') format('truetype');
-}
-@font-face {
-    font-family: 'LufthansaTextBold';
-    src: url('/resources/assets/fonts/LufthansaTextWeb-Bold.ttf') format('truetype');
-}
-@font-face {
-    font-family: 'LufthansaTextBoldItalic';
-    src: url('/resources/assets/fonts/LufthansaTextWeb-BoldItalic.ttf') format('truetype');
-}
 
 .dark_theme {
     /* Color Variables */
@@ -73,9 +61,6 @@
     --title-font: 'LufthansaHeadBold', sans-serif;
     --title-font-light: 'LufthansaHeadLight', sans-serif;
     --text-font: 'LufthansaText', sans-serif;
-    --text-font-italic: 'LufthansaTextItalic', sans-serif;
-    --text-font-bold: 'LufthansaTextBold', sans-serif;
-    --text-font-bold-italic: 'LufthansaTextBoldItalic', sans-serif;
 }
 
 /* General component stylings */

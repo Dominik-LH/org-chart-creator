@@ -1,10 +1,8 @@
 /*  
     This file contains general utility functions for the application.like ini.
 */
-//TODO clean up unused assets
 // Initialization function to set up the application
 function init() {
-    console.log('Initializing application...');
     loadSettings(); // Load user settings
     initExport(); // Initialize export fonts
     updateSaveStatus('none'); // Initialize save status

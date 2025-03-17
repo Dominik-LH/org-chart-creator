@@ -1,3 +1,7 @@
+/*  
+    This file contains all the logic used for the undo/redo functionality.
+*/
+
 var editHistory = [];
 var editHistoryIndex = -1;
 const MAX_HISTORY = 50; // Maximum number of history entries

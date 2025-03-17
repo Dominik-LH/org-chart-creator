@@ -1,7 +1,6 @@
 /*  
     This file contains logic for the page editor: displaying and editing action calls.
     Ensure that these JS libraries are included:
-    - html2canvas
     - Dragula
 */
 const pagesContainer = document.getElementById('pages_container');
