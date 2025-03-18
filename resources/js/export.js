@@ -62,11 +62,11 @@ function exportPDF(withNames, title) {
         //add title
         pdf.setFontSize(27.5);
         pdf.setFont('LufthansaHeadBold');
-        pdf.text(page.title, 25.5, 41.5, { align: "left" });
-
+        if(page.title) pdf.text(page.title, 25.5, 41.5, { align: "left" });
+        
         //add subtitle
         if (page.subtitle) {
-            pdf.setFontSize(18  );
+            pdf.setFontSize(18 );
             pdf.setFont('LufthansaHeadLight');
             pdf.text(page.subtitle, 25.5, 60, { align: "left" });
         }

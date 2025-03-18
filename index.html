@@ -124,10 +124,6 @@
                 </div>
                 <hr>
                 <div>
-                    <label onclick="toggleLanguage()">Change Language</label>
-                </div>
-                <hr>
-                <div>
                     <label data-i18n="autosave" for="autosave_setting">Autosave</label>
                     <input type="checkbox" class="toggle-switch" id="autosave_setting"
                         onchange="setAutosave(this.checked);">
@@ -141,6 +137,10 @@
                     <label data-i18n="hide_placeholder" for="exportmode_setting">Hide Placeholder*</label>
                     <input type="checkbox" class="toggle-switch" id="exportmode_setting"
                         onchange="hidePlaceholder(this.checked);">
+                </div>
+                <hr>
+                <div>
+                    <label onclick="toggleLanguage()">Change Language</label>
                 </div>
             </div>
             <div id="header_help_menu" class="header_submenu"> <!--Help menu-->
