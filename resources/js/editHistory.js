@@ -7,7 +7,7 @@ var editHistoryIndex = -1;
 const MAX_HISTORY = 50; // Maximum number of history entries
 function undo() {
     if (editHistoryIndex <= 0) { // Change the condition to <= 0
-        displayInfo("Nothing to undo");
+        displayInfo(translations[localStorage.getItem("language")]["nothing_to_undo"]);
         return;
     }
     editHistoryIndex--;
@@ -30,7 +30,7 @@ function undo() {
 
 function redo() {
     if (editHistoryIndex >= editHistory.length - 1) { // Change the condition to >= editHistory.length - 1
-        displayInfo("Nothing to redo");
+        displayInfo(translations[localStorage.getItem("language")]["nothing_to_redo"]);
         return;
     }
     editHistoryIndex++;

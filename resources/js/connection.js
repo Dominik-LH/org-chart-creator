@@ -67,7 +67,7 @@ function addLeftConnection() {
 }
 
 async function addConnection(type) {
-    displayInfo('Select the positions you want to connect.');
+    displayInfo(translations[localStorage.getItem("language")]['select_positions_for_connect']);
     const selectedPositionId1 = await selectPosition();
     const selectedPositionId2 = await selectPosition();
     const existingConnection = connectionsArray.find(conn => 
@@ -75,11 +75,11 @@ async function addConnection(type) {
         (conn.positionId1 == selectedPositionId2 && conn.positionId2 == selectedPositionId1)
     );
     if (existingConnection && existingConnection.type == type) {
-        displayInfo('Removing the connection.');
+        displayInfo(translations[localStorage.getItem("language")]['removing_connection']);
         existingConnection.element.remove();
         connectionsArray = connectionsArray.filter(conn => conn != existingConnection);
     } else if (existingConnection && existingConnection.type != type){
-        displayInfo('Changing the connection.');
+        displayInfo(translations[localStorage.getItem("language")]['changing_connection']);
         existingConnection.element.remove();
         connectionsArray = connectionsArray.filter(conn => conn != existingConnection);
         new Connection(selectedPositionId1, selectedPositionId2, type);
@@ -136,7 +136,7 @@ function selectPosition() {
                     });
                 });
                 document.removeEventListener('click', outsideClickListener);
-                displayInfo('Selection cancelled.');
+                displayInfo(translations[localStorage.getItem("language")]['selection_cancel']);
                 selectionInProgress = false;
                 reject('Selection cancelled');
             }

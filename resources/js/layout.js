@@ -166,7 +166,7 @@ function loadAutosavePreference() {
         if (autosaveToggle) {
             autosaveToggle.checked = false;
         }
-        displayInfo('Autosave is disabled');
+        displayInfo(translations[localStorage.getItem("language")]["autosave_disabled"]);
     } else {
         autosaveActive = true;
         if (autosaveToggle) {
@@ -208,6 +208,7 @@ function hidePlaceholder(bool) {
 function loadSettings() {
     loadThemePreference();
     loadAutosavePreference();
+    changeLanguage(localStorage.getItem("language") || "en")
 }
 
 

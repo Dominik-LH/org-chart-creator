@@ -47,7 +47,7 @@ function displaySmallPages() {
 
 // Function to delete a page at a specific index
 async function call_deletePageAtIndex(index) {
-    if (await runDeleteConfirmation("Do you want to delete the entire page with the positions?", "Delete Page", "Delete")) {
+    if (await runDeleteConfirmation(translations[localStorage.getItem("language")]["confirm_delete_page_text"], translations[localStorage.getItem("language")]["confirm_delete_page_primary"], translations[localStorage.getItem("language")]["confirm_delete_page_title"])) {
         deletePageAtIndex(index);
         const wrapper = smallPagesContainer.querySelectorAll('.small_page_wrapper');
         if (index < wrapper.length) {

@@ -34,8 +34,8 @@ class Page {
         // Create the HTML structure for the page
         let html = `
             <div class="page" id="${this.pageId}">
-                <input type="text" placeholder="add Title by clicking here" class="page_title">
-                <input type="text" placeholder="add Subtitle by clicking here" class="page_subtitle">
+                <input type="text" placeholder="${translations[localStorage.getItem("language")]["title_placeholder"]}" class="page_title">
+                <input type="text" placeholder="${translations[localStorage.getItem("language")]["subtitle_placeholder"]}" class="page_subtitle">
                 <div class="canvas" id="canvas-${this.pageId}">
                     <div class="layer" id="layer-0"></div>
                     <div class="layer" id="layer-1"></div>

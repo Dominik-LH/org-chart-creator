@@ -98,6 +98,14 @@ header {
     cursor: pointer;
 }
 
+#header_file_menu div, #header_edit_menu div{
+    padding-right: 60px;
+}
+
+#header_settings_menu div {
+    padding-right: 5px;
+}
+
 .header_submenu div:hover {
     background-color: var(--background-color);
 }
@@ -107,8 +115,11 @@ header {
     border: .1px inset var(--popup-hr-color);
 }
 
-.header_submenu div i {
-    font-size: smaller;
+.header_submenu i {
+    position: absolute;
+    right: 5px;
+    transform: translate(0, -23px);
+    font-size: small;
     color: gray;
 }
 
@@ -165,6 +176,7 @@ header {
     text-decoration: none;
     cursor: pointer;
 }
+
 
 /* Header buttons */
 #header_buttons_container {

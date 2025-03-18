@@ -57,8 +57,8 @@ class Position {
     display() {
         let html = `
                     <div class="position lc" id="position-${this.positionId}">
-                        <div class="position_text" contenteditable="true"><b>abbr -</b> expl.</div>
-                        <input class="position_res_per" type="text" placeholder="responsible person">
+                        <div class="position_text" contenteditable="true"><b>${translations[localStorage.getItem("language")]["position_placeholder_text1"]}</b> ${translations[localStorage.getItem("language")]["position_placeholder_text2"]}</div>
+                        <input class="position_res_per" type="text" placeholder="${translations[localStorage.getItem("language")]["position_person_placeholder_text"]}">
                     </div>
                     `;
         // Set the position of the element and display it
@@ -269,11 +269,11 @@ class Position {
                     </select>
                     <div>
                         <input type="checkbox" id="func" class="toggle-switch">    
-                        <label for="func">Funct. int.</label>
+                        <label for="func">${translations[localStorage.getItem("language")]["func_int"]}</label>
                     </div>
                     <div>
                         <input type="checkbox" id="project" class="toggle-switch">    
-                        <label for="project">Project</label>
+                        <label for="project">${translations[localStorage.getItem("language")]["project"]}</label>
                     </div>
                     <img src="/resources/assets/icons/delete.svg" alt="delete" class="delete_position">
                 </div>

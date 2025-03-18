@@ -26,11 +26,11 @@ async function initializeFileLogic() {
             switch (error.name) {
                 case 'NotAllowedError':
                     console.warn('Failed to open the last opened file:', error);
-                    displayError('Access to the recent file was denied. Please check permissions.');
+                    displayError(translations[localStorage.getItem("language")]["error_file_access_denied"]);
                     break;
                 case 'NotFoundError':
                     console.info('Failed to open the last opened file:', error);
-                    displayInfo('The recent file was not found. It may have been moved or deleted.');
+                    displayInfo(translations[localStorage.getItem("language")]["error_file_not_found"]);
                     break;
                 default:
                     console.error('Failed to open the last opened file:', error);
@@ -46,7 +46,7 @@ async function initializeFileLogic() {
 // Load chart confirmation if there are unsaved changes
 async function loadChart() {
     if (unsavedChangesButton.style.display !== 'none' || savingDisplay.style.display !== 'none') {
-        if (await runDeleteConfirmation("There are Unsaved Changes. If you continue these changes will be lost. This action cannot be undone!", "Continue", "Override current Changes?")) {
+        if (await runDeleteConfirmation(translations[localStorage.getItem("language")]["confirm_override_text"], translations[localStorage.getItem("language")]["confirm_override_primary"], translations[localStorage.getItem("language")]["confirm_override_title"])) {
             loadChartInternal();
         }
     } else {
@@ -102,7 +102,7 @@ async function loadChartFromFile(file) {
 // Create a new chart with confirmation if there are unsaved changes
 async function createNewChart() {
     if (unsavedChangesButton.style.display !== 'none' || savingDisplay.style.display !== 'none') {
-        if (await runDeleteConfirmation("There are Unsaved Changes. If you continue these changes will be lost. This action cannot be undone!", "Continue", "Override current Changes?")) {
+        if (await runDeleteConfirmation(translations[localStorage.getItem("language")]["confirm_override_text"], translations[localStorage.getItem("language")]["confirm_override_primary"], translations[localStorage.getItem("language")]["confirm_override_title"])) {
             reset();
             saveChartAs();
             addHistoryEntry(); // Add initial history entry after creating a new chart
@@ -279,7 +279,7 @@ function resetViewOnly(){
 window.onbeforeunload = confirmExit;
 function confirmExit() {
     if (unsavedChangesButton.style.display !== 'none' || savingDisplay.style.display !== 'none') {
-        return "Some task is in progress. Are you sure you want to close?";
+        return translations[localStorage.getItem("language")]["in_progress"];
     }
 }
 
