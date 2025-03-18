@@ -88,7 +88,8 @@ const translations = {
         title_placeholder: "add title by clicking here",
         subtitle_placeholder: "add subtitle by clicking here",
         // position 
-        position_placeholder_text: "Abbr - expl.",
+        position_placeholder_text1: "Abbr -",
+        position_placeholder_text2: " expl.",
         position_person_placeholder_text: "Responsible person",
         // position editor
         func_int: "func. int.",
