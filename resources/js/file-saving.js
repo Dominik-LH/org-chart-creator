@@ -168,7 +168,6 @@ async function saveChart() {
         updateSaveStatus('saved');
     } catch (error) {
         console.error('Failed to save file:', error);
-        displayError(error);
         updateSaveStatus('unsaved');
     }
 }
@@ -223,7 +222,6 @@ async function saveChartAs() {
         updateSaveStatus('saved');
     } catch (error) {
         console.error('Failed to save file:', error);
-        displayError(error);
         updateSaveStatus('unsaved');
     }
 }
