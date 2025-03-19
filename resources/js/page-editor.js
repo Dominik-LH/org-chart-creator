@@ -27,7 +27,7 @@ function displaySmallPages() {
         // Add delete button to the top right corner of the page
         const deleteButton = document.createElement('div');
         deleteButton.className = 'delete_button';
-        deleteButton.innerHTML = '<img src="resources/assets/icons/Delete.svg" alt="delete" width="20" height="20">';
+        deleteButton.innerHTML = '<img src="/resources/assets/icons/Delete.svg" alt="delete" width="20" height="20">';
         deleteButton.onclick = () => call_deletePageAtIndex(Array.from(pages).indexOf(page));
         smallPageWrapper.appendChild(deleteButton);
     });
