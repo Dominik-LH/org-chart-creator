@@ -4,6 +4,8 @@
     - PapaParse
 */
 
+//TODO auto override on Import
+
 function exportToCSV() {
     const data = positionsArray.map(position => {
         const textParts = position.text ? position.text.split(' - ') : ['', ''];

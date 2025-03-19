@@ -3,6 +3,7 @@
     Ensure that these JS libraries are included:
     - idb (IndexedDB Promised)
 */
+//TODO sharpoint datei bearebiten?
 
 var autosaveActive = false; 
 var currentFileHandle = null;
