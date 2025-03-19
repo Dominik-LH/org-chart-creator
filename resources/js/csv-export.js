@@ -31,8 +31,9 @@ function exportToCSV() {
     });
 
     //create the csv with semicolon delimiter
-    const csv = Papa.unparse(data, { delimiter: ';' });
-    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const csv = Papa.unparse(data, {header: true, encoding: "UTF-8", delimiter: ';' });
+    const bom = '\uFEFF'; // UTF-8 Byte Order Mark
+    const blob = new Blob([bom + csv], { type: 'text/csv;charset=utf-8;' });
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.setAttribute('href', url);
