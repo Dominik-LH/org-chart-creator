@@ -176,9 +176,9 @@ function exportPDF(withNames, title) {
             if (position.proj) pdf.setLineDash([]);
 
             //draw connections
-            const connections = connectionsArray.filter(connection => connection.positionId1 === position.positionId);
-            connections.forEach(connection => {
-                const position2 = positionsArray.find(position => position.positionId === connection.positionId2);
+            connectionsArray.filter(connection => position.positionId == connection.positionId1).forEach(connection => {
+                console.log(connection);
+                const position2 = positionsArray.find(position => position.positionId == connection.positionId2);
                 const xConPos = 5 + position2.x_position * (0.01 * 1280);
                 const yConPos = 70 + position2.layer * 42.87;
                 pdf.setDrawColor(0, 35, 95);
