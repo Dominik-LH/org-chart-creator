@@ -373,7 +373,7 @@
 .position_settings_container {
     display: none;
     z-index: 1000;
-    background-image: url("/resources/assets/icons/position_setting_background.svg");
+    background-image: url("../icons/position_setting_background.svg");
     background-size: 100% 100%;
     background-repeat: no-repeat;
     width: 14.3vw;

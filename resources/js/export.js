@@ -12,7 +12,7 @@ function initExport() {
     WebFont.load({
         custom: {
             families: ['LufthansaHeadBold', 'LufthansaHeadLight', 'LufthansaText'],
-            urls: ['/resources/assets/stylesheets/general.css']
+            urls: ['resources/assets/stylesheets/general.css']
         },
         active: function () {
             // Register the fonts with jsPDF once they're loaded
@@ -44,12 +44,12 @@ function exportPDF(withNames, title) {
     pdf.setTextColor(0, 35, 95);
     pdf.setFont('LufthansaHeadBold');
 
-    pdf.setFillColor(235,235,235);
+    pdf.setFillColor(235, 235, 235);
     pdf.rect(10, 30, 940, 480, "F");
-    
+
     pdf.setFontSize(60);
     pdf.text(title, 30, 200, { align: "left" });
-    
+
     pdf.setFontSize(20);
     pdf.text("LUFTHANSA GROUP", 960 - 20, 540 - 10, { align: "right" });
 
@@ -62,11 +62,11 @@ function exportPDF(withNames, title) {
         //add title
         pdf.setFontSize(27.5);
         pdf.setFont('LufthansaHeadBold');
-        if(page.title) pdf.text(page.title, 25.5, 41.5, { align: "left" });
-        
+        if (page.title) pdf.text(page.title, 25.5, 41.5, { align: "left" });
+
         //add subtitle
         if (page.subtitle) {
-            pdf.setFontSize(18 );
+            pdf.setFontSize(18);
             pdf.setFont('LufthansaHeadLight');
             pdf.text(page.subtitle, 25.5, 60, { align: "left" });
         }
@@ -80,12 +80,12 @@ function exportPDF(withNames, title) {
             if (layer) {
                 if (index !== 0) {
                     pdf.setDrawColor(0, 35, 95);
-                    pdf.line( 7, 83 -11 + index * 42.87, 34.88,  83 -11 + index * 42.87); 
+                    pdf.line(7, 83 - 11 + index * 42.87, 34.88, 83 - 11 + index * 42.87);
                 }
                 pdf.setFont('LufthansaHeadBold');
                 pdf.setFontSize(16.5);
-                
-                pdf.text("N"+indicatorNumber, 20, 83.5 + index * 42.87, {align: 'center'});
+
+                pdf.text("N" + indicatorNumber, 20, 83.5 + index * 42.87, { align: 'center' });
                 indicatorNumber++;
             }
         });
@@ -108,17 +108,17 @@ function exportPDF(withNames, title) {
         //add func int position background
         positionsArray.filter(position => position.pageId === page.pageId && position.func).forEach(position => {
             const x = 5 + position.x_position * (0.01 * 1280);
-            const y = 70  + position.layer * 42.87;
+            const y = 70 + position.layer * 42.87;
 
             pdf.setFillColor(228, 228, 228);
-            pdf.rect(x-3.5, y-3.5, 123.59+7, 36.55+7, "F");
-            
+            pdf.rect(x - 3.5, y - 3.5, 123.59 + 7, 36.55 + 7, "F");
+
         });
         positionsArray.filter(position => position.pageId === page.pageId).forEach(position => {
             //set style variables for position 
             const text = position.text;
             const resPer = position.responsiblePerson;
-            
+
             var color;
             switch (position.positionType) {
                 case "lc":
@@ -136,42 +136,44 @@ function exportPDF(withNames, title) {
                 default:
                     console.log("Error: Unknown position type");
             }
-            
+
             var fillColor = [255, 255, 255];
             if (position.positionType === "head") fillColor = [0, 35, 95];
-            
-            const x = 5 + position.x_position * (0.01 * 1280);
-            const y = 70  + position.layer * 42.87;
 
-            if (position.proj) pdf.setLineDash([4, 2], 0); 
+            const x = 5 + position.x_position * (0.01 * 1280);
+            const y = 70 + position.layer * 42.87;
+
+            if (position.proj) pdf.setLineDash([4, 2], 0);
 
             //draw position box
             pdf.setDrawColor(...color);
             pdf.setFillColor(...fillColor);
             pdf.rect(x, y, 123.59, 36.55, "FD");
-            
+
             //draw text
             pdf.setFont('LufthansaText');
             pdf.setFontSize(11.5);
             pdf.setTextColor(...color);
 
-            const textParts = text.split(' - ');
-            if (textParts.length > 1) {
-                pdf.setFont('LufthansaHeadBold');
-                pdf.text(textParts[0], x + 3, y + 9, { maxWidth: 113.59 });
-                pdf.setFont('LufthansaText');
-                const indent = " ".repeat(pdf.getTextWidth(textParts[0])/2);
-                pdf.text(indent + '  - ' + textParts.slice(1).join(' - '), x  + 3 , y + 9, { maxWidth: 113.59});
-            } else {
-                pdf.setFont('LufthansaHeadBold');
-                pdf.text(text, x + 3, y + 9, { maxWidth: 113.59 });
+            if (text) {
+                const textParts = text.split(' - ');
+                if (textParts.length > 1) {
+                    pdf.setFont('LufthansaHeadBold');
+                    pdf.text(textParts[0], x + 3, y + 9, { maxWidth: 113.59 });
+                    pdf.setFont('LufthansaText');
+                    const indent = " ".repeat(pdf.getTextWidth(textParts[0]) / 2);
+                    pdf.text(indent + '  - ' + textParts.slice(1).join(' - '), x + 3, y + 9, { maxWidth: 113.59 });
+                } else {
+                    pdf.setFont('LufthansaHeadBold');
+                    pdf.text(text, x + 3, y + 9, { maxWidth: 113.59 });
+                }
             }
 
             if (withNames && resPer) {
                 pdf.text(resPer, (x + 123.59 - 3), (y + 36.55 - 3), { align: "right" });
             }
 
-            if (position.proj) pdf.setLineDash([]); 
+            if (position.proj) pdf.setLineDash([]);
 
             //draw connections
             const connections = connectionsArray.filter(connection => connection.positionId1 === position.positionId);
@@ -208,7 +210,7 @@ function exportPDF(withNames, title) {
                 }
             });
         });
-       
+
     });
 
     //hide loading animation
@@ -224,45 +226,45 @@ function exportPDF(withNames, title) {
 function addPageFooter(pdf) {
     const top = 540 - 40;
     const left = 960 - 338;
-    
+
     // Define elements (checkboxes, lines, filled boxes)
     const elements = [
-        { type: "line", x: 0, y: 10, width: 7, label: "Funct. line" }, 
+        { type: "line", x: 0, y: 10, width: 7, label: "Funct. line" },
         { type: "box", x: 51, y: 10, label: "LC position" },
         { type: "box", x: 103, y: 10, label: "TL position", color: [98, 98, 98] },
-        { type: "dashedBox", x: 0, y: 22, label: "Project"}, 
-        { type: "box", x: 51, y: 22, label: "EC / expert", color: [0, 128, 0] }, 
-        { type: "filled", x: 103, y: 22, label: "Funct. integrated"} 
+        { type: "dashedBox", x: 0, y: 22, label: "Project" },
+        { type: "box", x: 51, y: 22, label: "EC / expert", color: [0, 128, 0] },
+        { type: "filled", x: 103, y: 22, label: "Funct. integrated" }
     ];
-    
+
     // Draw elements
     elements.forEach(({ type, x, y, width, label, color }) => {
         if (type === "line") {
             pdf.setDrawColor(0, 35, 95);
-            pdf.line(left + x, top + y + 3, left + x + width, top + y + 3); 
+            pdf.line(left + x, top + y + 3, left + x + width, top + y + 3);
         } else if (type === "box") {
-            pdf.setDrawColor(...(color || [0, 35, 95])); 
-            pdf.rect(left + x, top + y, 7, 7); 
-        } else if (type === "dashedBox") {
-            pdf.setDrawColor(...(color || [0, 35, 95])); 
-            pdf.setLineDash([1, 1], 0); 
+            pdf.setDrawColor(...(color || [0, 35, 95]));
             pdf.rect(left + x, top + y, 7, 7);
-            pdf.setLineDash([]); 
+        } else if (type === "dashedBox") {
+            pdf.setDrawColor(...(color || [0, 35, 95]));
+            pdf.setLineDash([1, 1], 0);
+            pdf.rect(left + x, top + y, 7, 7);
+            pdf.setLineDash([]);
         } else if (type === "filled") {
-            pdf.setFillColor(228,228,228); 
+            pdf.setFillColor(228, 228, 228);
             pdf.rect(left + x, top + y, 7, 7, "F");
         }
-        
+
         // Draw text next to element
         pdf.setFontSize(9);
         pdf.setFont('LufthansaHeadLight');
         pdf.setTextColor(0, 0, 0);
         pdf.text(label, left + x + 11, top + y + 6);
-      });
+    });
 
     // Add Lufthansa Group text
     pdf.setFont('LufthansaHeadBold');
     pdf.setTextColor(0, 35, 95);
     pdf.setFontSize(21);
-    pdf.text("LUFTHANSA GROUP", 960-9.6, 540-15.8, { align: "right" });
+    pdf.text("LUFTHANSA GROUP", 960 - 9.6, 540 - 15.8, { align: "right" });
 }

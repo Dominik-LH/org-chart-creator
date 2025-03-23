@@ -71,7 +71,7 @@ class Page {
                             <span class="square funct-integrated"></span> Funct. integrated
                         </div>
                     </div>
-                    <img src="/resources/assets/img/LHG-logo.png" alt="Lufthansa Group Logo" width="190">
+                    <img src="resources/assets/img/LHG-logo.png" alt="Lufthansa Group Logo" width="190">
                 </div>
             </div>
             `;

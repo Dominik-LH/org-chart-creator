@@ -275,7 +275,7 @@ class Position {
                         <input type="checkbox" id="project" class="toggle-switch">    
                         <label for="project">${translations[localStorage.getItem("language")]["project"]}</label>
                     </div>
-                    <img src="/resources/assets/icons/delete.svg" alt="delete" class="delete_position">
+                    <img src="resources/assets/icons/delete.svg" alt="delete" class="delete_position">
                 </div>
             </div>
             `;

@@ -175,7 +175,7 @@
     overflow: hidden;
     cursor: grab ;
     box-shadow: 0 0px 8px rgba(0, 0, 0, 0.151) !important;
-    position: relative; /* Ensure the delete button is positioned relative to this container */
+    position: relative; 
 }
 
 
@@ -202,7 +202,7 @@
     right: 5px;
     cursor: pointer;
     display: none;
-    z-index: 1; /* Ensure it is above other elements */
+    z-index: 1; 
 }
 
 .small_page_wrapper:hover .delete_button {

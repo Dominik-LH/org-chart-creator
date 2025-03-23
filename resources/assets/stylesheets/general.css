@@ -1,15 +1,15 @@
 /* Font loading */
 @font-face {
     font-family: 'LufthansaHeadBold';
-    src: url('/resources/assets/fonts/LufthansaHeadWeb-Bold.ttf') format('truetype');
+    src: url('../fonts/LufthansaHeadWeb-Bold.ttf') format('truetype');
 }
 @font-face {
     font-family: 'LufthansaHeadLight';
-    src: url('/resources/assets/fonts/LufthansaHeadWeb-Light.ttf') format('truetype');
+    src: url('../fonts/LufthansaHeadWeb-Light.ttf') format('truetype');
 }
 @font-face {
     font-family: 'LufthansaText';
-    src: url('/resources/assets/fonts/LufthansaTextWeb-Regular.ttf') format('truetype');
+    src: url('../fonts/LufthansaTextWeb-Regular.ttf') format('truetype');
 }
 
 .dark_theme {
