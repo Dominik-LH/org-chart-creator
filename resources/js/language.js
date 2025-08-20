@@ -49,6 +49,7 @@ const translations = {
         save_as: "Save as",
         export_as_PDF: "Export as PDF",
         export_as_PDF_sc: "(ctrl + p)",
+        export_as_ppxt: "Export as PowerPoint",
         export_as_CSV: "Export as CSV",
         //edit menu
         undo: "Undo",
@@ -135,6 +136,7 @@ const translations = {
         save_sc: "(strg + s)",
         save_as: "Speichern unter",
         export_as_PDF: "Als PDF exportieren",
+        export_as_ppxt: "Als PowerPoint exportieren",
         export_as_PDF_sc: "(strg + p)",
         export_as_CSV: "Als CSV exportieren",
         //edit menu

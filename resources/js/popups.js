@@ -148,10 +148,17 @@ function call_importCSV() {
 
 // Function to call export PDF action
 function call_exportPDF(withNames, title) {
-    closePopupById('export_menu');
+    closePopupById('export_menu_pdf');
     showLoader();
     exportPDF(withNames, title);
 }
+
+function call_exportPpxt(withNames, title) {
+    closePopupById('export_menu_ppxt');
+    showLoader();
+    exportPPTX(withNames, title);
+}
+
 
 // Function to call create new chart action
 function call_createNewChart() {

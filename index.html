@@ -27,6 +27,7 @@
             "connection.js",
             "csv-export.js",
             "csv-import.js",
+            "ppxt-export.js",
             "pdf-export.js",
             "file-saving.js",
             "layout.js",
@@ -53,7 +54,8 @@
             "https://cdnjs.cloudflare.com/ajax/libs/leader-line/1.0.7/leader-line.min.js", //position connections
             "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js", //PDF export
             "https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.28/webfontloader.js", //PDF export
-            "https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js" //csv
+            "https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js", //PPTX export
+            "https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js" //csv handling
         ];
         const cdnStylesheets = [
             "https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.3/dragula.min.css"
@@ -105,7 +107,8 @@
                 <div data-i18n="save" onclick="saveChart()">Save </div><i data-i18n="save_sc">(Ctrl+S)</i>
                 <div data-i18n="save_as" onclick="saveChartAs()">Save As</div>
                 <hr>
-                <div data-i18n="export_as_PDF" onclick="openPopupById('export_menu')">Export as PDF </div><i data-i18n="export_as_PDF_sc">(Ctrl+P)</i>
+                <div data-i18n="export_as_PDF" onclick="openPopupById('export_menu_pdf')">Export as PDF </div><i data-i18n="export_as_PDF_sc">(Ctrl+P)</i>
+                <div data-i18n="export_as_ppxt" onclick="openPopupById('export_menu_ppxt')">Export as ppxt </div>
                 <div data-i18n="export_as_CSV" onclick="exportToCSV()">Export as CSV</div>
             </div>
             <div id="header_edit_menu" class="header_submenu"> <!--Edit menu-->
@@ -153,7 +156,7 @@
             <button class="secondary_button" data-i18n="import_csv" onclick="openPopupById('import_menu')">
                 Import CSV
             </button>
-            <button class="primary_button" data-i18n="export" onclick="openPopupById('export_menu')">
+            <button class="primary_button" data-i18n="export" onclick="openPopupById('export_menu_pdf')">
                 Export
             </button>
         </div>
@@ -236,31 +239,61 @@
             </div>
         </div>
     </div>
-    <!--Export menu popup-->
-    <div id="export_menu" class="popup_container" style="display: none">
+    <!--pdf Export menu popup-->
+    <div id="export_menu_pdf" class="popup_container" style="display: none">
         <div class="popup_header_container"> <!--Popup header-->
             <h2 data-i18n="export_menu" class="popup_title">Export Menu</h2>
-            <div class="popup_close" onclick="closePopupById('export_menu')">
+            <div class="popup_close" onclick="closePopupById('export_menu_pdf')">
                 <img src="resources/assets/icons/close.svg" alt="close" class="svg">
             </div>
         </div>
         <div class="popup_body_container"><!--Popup body-->
             <div class="popup_content_container">
-                <label data-i18n="export_menu_title_label" for="export_title_setting">Title of the Organizational
+                <label data-i18n="export_menu_title_label" for="pdf_export_title_setting">Title of the Organizational
                     Chart</label>
-                <input type="text" id="export_title_setting" value="Organizational Chart">
+                <input type="text" id="pdf_export_title_setting" value="Organizational Chart">
                 <div>
-                    <label data-i18n="export_menu_names_label" for="export_names_setting">Export with Names</label>
-                    <input type="checkbox" class="toggle-switch" id="export_names_setting" checked>
+                    <label data-i18n="export_menu_names_label" for="pdf_export_names_setting">Export with Names</label>
+                    <input type="checkbox" class="toggle-switch" id="pdf_export_names_setting" checked>
+                </div>
+            </div>
+            <div class="popup_button_container"> <!--Actions-->
+                <button class="secondary_button" data-i18n="pdf_export_menu_secondary"
+                    onclick="closePopupById('pdf_export_menu_pdf')">
+                    Cancel
+                </button>
+                <button class="primary_button" data-i18n="export_menu_primary"
+                    onclick="call_exportPDF(document.getElementById('pdf_export_names_setting').checked, document.getElementById('pdf_export_title_setting').value)">
+                    Export
+                </button>
+            </div>
+        </div>
+    </div>
+    <!--ppxt Export menu popup-->
+    <div id="export_menu_ppxt" class="popup_container" style="display: none">
+        <div class="popup_header_container"> <!--Popup header-->
+            <h2 data-i18n="export_menu" class="popup_title">Export Menu</h2>
+            <div class="popup_close" onclick="closePopupById('export_menu_ppxt')">
+                <img src="resources/assets/icons/close.svg" alt="close" class="svg">
+            </div>
+        </div>
+        <div class="popup_body_container"><!--Popup body-->
+            <div class="popup_content_container">
+                <label data-i18n="export_menu_title_label" for="ppxt_export_title_setting">Title of the Organizational
+                    Chart</label>
+                <input type="text" id="ppxt_export_title_setting" value="Organizational Chart">
+                <div>
+                    <label data-i18n="export_menu_names_label" for="ppxt_export_names_setting">Export with Names</label>
+                    <input type="checkbox" class="toggle-switch" id="ppxt_export_names_setting" checked>
                 </div>
             </div>
             <div class="popup_button_container"> <!--Actions-->
                 <button class="secondary_button" data-i18n="export_menu_secondary"
-                    onclick="closePopupById('export_menu')">
+                    onclick="closePopupById('export_menu_ppxt')">
                     Cancel
                 </button>
                 <button class="primary_button" data-i18n="export_menu_primary"
-                    onclick="call_exportPDF(document.getElementById('export_names_setting').checked, document.getElementById('export_title_setting').value)">
+                    onclick="call_exportPpxt(document.getElementById('ppxt_export_names_setting').checked, document.getElementById('ppxt_export_title_setting').value)">
                     Export
                 </button>
             </div>

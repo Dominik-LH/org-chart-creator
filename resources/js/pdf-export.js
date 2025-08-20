@@ -1,6 +1,5 @@
 /*
     This file contains all the logic used for exporting the pages to a PDF file.
-    Currently, the slides get exported by creating images from the pages and adding these to a PDF file.
     Ensure that these JS libraries are included:
     - jsPDF
     - WebFontLoader
